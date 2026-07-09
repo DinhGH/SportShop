@@ -44,7 +44,7 @@ namespace SportShop.App_Code
             try
             {
                 db.moketnoi();
-                string query = $"SELECT * FROM Products WHERE StoreID = {storeId} ORDER BY ProductID DESC";
+                string query = string.Format("SELECT * FROM Products WHERE StoreID = {0} ORDER BY ProductID DESC", storeId);
                 SqlDataAdapter da = new SqlDataAdapter(query, db.conn);
                 da.Fill(dt);
             }
@@ -68,7 +68,7 @@ namespace SportShop.App_Code
             try
             {
                 db.moketnoi();
-                string query = $"SELECT * FROM Products WHERE ProductID = {productId}";
+                string query = string.Format("SELECT * FROM Products WHERE ProductID = {0}", productId);
                 SqlDataAdapter da = new SqlDataAdapter(query, db.conn);
                 da.Fill(dt);
             }
@@ -92,8 +92,7 @@ namespace SportShop.App_Code
             try
             {
                 db.moketnoi();
-                string query = $"INSERT INTO Products (ProductName, Description, Price, StockQuantity, ImageURL, CategoryID, StoreID, IsAvailable) " +
-                               $"VALUES (N'{name}', N'{desc}', {price}, {quantity}, '{imageUrl}', {categoryId}, {storeId}, 1)";
+                string query = string.Format("INSERT INTO Products (ProductName, Description, Price, StockQuantity, ImageURL, CategoryID, StoreID, IsAvailable) VALUES (N'{0}', N'{1}', {2}, {3}, '{4}', {5}, {6}, 1)", name, desc, price, quantity, imageUrl, categoryId, storeId);
                 SqlCommand cmd = new SqlCommand(query, db.conn);
                 result = cmd.ExecuteNonQuery();
             }
@@ -111,15 +110,13 @@ namespace SportShop.App_Code
         /// <summary>
         /// Cập nhật thông tin sản phẩm
         /// </summary>
-        public int SuaSanPham(int productId, string name, string desc, decimal price, int categoryId, string imageUrl)
+        public int SuaSanPham(int productId, string name, string desc, decimal price, int quantity, int categoryId, string imageUrl)
         {
             int result = -1;
             try
             {
                 db.moketnoi();
-                string query = $"UPDATE Products SET ProductName = N'{name}', Description = N'{desc}', " +
-                               $"Price = {price}, CategoryID = {categoryId}, ImageURL = '{imageUrl}' " +
-                               $"WHERE ProductID = {productId}";
+                string query = string.Format("UPDATE Products SET ProductName = N'{0}', Description = N'{1}', Price = {2}, StockQuantity = {3}, CategoryID = {4}, ImageURL = '{5}' WHERE ProductID = {6}", name, desc, price, quantity, categoryId, imageUrl, productId);
                 SqlCommand cmd = new SqlCommand(query, db.conn);
                 result = cmd.ExecuteNonQuery();
             }
@@ -143,7 +140,7 @@ namespace SportShop.App_Code
             try
             {
                 db.moketnoi();
-                string query = $"DELETE FROM Products WHERE ProductID = {productId}";
+                string query = string.Format("DELETE FROM Products WHERE ProductID = {0}", productId);
                 SqlCommand cmd = new SqlCommand(query, db.conn);
                 result = cmd.ExecuteNonQuery();
             }
@@ -163,22 +160,8 @@ namespace SportShop.App_Code
         /// </summary>
         public int CapNhatTonKho(int productId, int quantity)
         {
-            int result = -1;
-            try
-            {
-                db.moketnoi();
-                string query = $"UPDATE Products SET StockQuantity = {quantity} WHERE ProductID = {productId}";
-                SqlCommand cmd = new SqlCommand(query, db.conn);
-                result = cmd.ExecuteNonQuery();
-            }
-            catch
-            {
-                result = -1;
-            }
-            finally
-            {
-                db.dongketnoi();
-            }
+            string query = string.Format("UPDATE Products SET StockQuantity = {0} WHERE ProductID = {1}", quantity, productId);
+            int result = db.thucthiketnoi(query);
             return result;
         }
 
@@ -191,7 +174,7 @@ namespace SportShop.App_Code
             try
             {
                 db.moketnoi();
-                string query = $"UPDATE Products SET IsAvailable = {(isAvailable ? 1 : 0)} WHERE ProductID = {productId}";
+                string query = string.Format("UPDATE Products SET IsAvailable = {0} WHERE ProductID = {1}", (isAvailable ? 1 : 0), productId);
                 SqlCommand cmd = new SqlCommand(query, db.conn);
                 result = cmd.ExecuteNonQuery();
             }

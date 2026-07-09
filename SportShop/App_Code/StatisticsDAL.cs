@@ -20,10 +20,10 @@ namespace SportShop.App_Code
             try
             {
                 db.moketnoi();
-                string query = $@"SELECT ISNULL(SUM(od.Price * od.Quantity), 0) as TotalRevenue
-                                FROM OrderDetails od
-                                INNER JOIN Products p ON od.ProductID = p.ProductID
-                                WHERE p.StoreID = {storeId} AND od.Status = N'Đã giao'";
+                string query = string.Format(@"SELECT ISNULL(SUM(od.Price * od.Quantity), 0) as TotalRevenue
+                                    FROM OrderDetails od
+                                    INNER JOIN Products p ON od.ProductID = p.ProductID
+                                    WHERE p.StoreID = {0} AND od.Status = N'Đã giao'", storeId);
                 SqlDataAdapter da = new SqlDataAdapter(query, db.conn);
                 da.Fill(dt);
 
@@ -52,10 +52,9 @@ namespace SportShop.App_Code
             try
             {
                 db.moketnoi();
-                string query = $@"SELECT COUNT(DISTINCT od.OrderID) as OrderCount
-                                FROM OrderDetails od
-                                INNER JOIN Products p ON od.ProductID = p.ProductID
-                                WHERE p.StoreID = {storeId}";
+                string query = string.Format(@"SELECT COUNT(*) as OrderCount
+                                    FROM OrderDetails
+                                    WHERE StoreID = {0}", storeId);
                 SqlDataAdapter da = new SqlDataAdapter(query, db.conn);
                 da.Fill(dt);
 
@@ -84,18 +83,18 @@ namespace SportShop.App_Code
             try
             {
                 db.moketnoi();
-                string query = $@"SELECT TOP {top}
-                                p.ProductID,
-                                p.ProductName,
-                                p.Price,
-                                p.ImageURL,
-                                SUM(od.Quantity) as TotalSold,
-                                COUNT(DISTINCT od.OrderID) as OrderCount
-                            FROM OrderDetails od
-                            INNER JOIN Products p ON od.ProductID = p.ProductID
-                            WHERE p.StoreID = {storeId}
-                            GROUP BY p.ProductID, p.ProductName, p.Price, p.ImageURL
-                            ORDER BY TotalSold DESC";
+                string query = string.Format(@"SELECT TOP {0}
+                                    p.ProductID,
+                                    p.ProductName,
+                                    p.Price,
+                                    p.ImageURL,
+                                    SUM(od.Quantity) as TotalSold,
+                                    COUNT(DISTINCT od.OrderID) as OrderCount
+                                FROM OrderDetails od
+                                INNER JOIN Products p ON od.ProductID = p.ProductID
+                                WHERE p.StoreID = {1}
+                                GROUP BY p.ProductID, p.ProductName, p.Price, p.ImageURL
+                                ORDER BY TotalSold DESC", top, storeId);
                 SqlDataAdapter da = new SqlDataAdapter(query, db.conn);
                 da.Fill(dt);
             }
@@ -122,24 +121,24 @@ namespace SportShop.App_Code
                     year = DateTime.Now.Year;
 
                 db.moketnoi();
-                string query = $@"SELECT
-                                MONTH(o.CreatedAt) as Month,
-                                DATENAME(MONTH, o.CreatedAt) as MonthName,
-                                SUM(od.Price * od.Quantity) as Revenue,
-                                COUNT(DISTINCT od.OrderID) as OrderCount
-                            FROM OrderDetails od
-                            INNER JOIN Products p ON od.ProductID = p.ProductID
-                            INNER JOIN Orders o ON od.OrderID = o.OrderID
-                            WHERE p.StoreID = {storeId} 
-                                AND od.Status = N'Đã giao'
-                                AND YEAR(o.CreatedAt) = {year}
-                            GROUP BY MONTH(o.CreatedAt), DATENAME(MONTH, o.CreatedAt)
-                            ORDER BY MONTH(o.CreatedAt)";
+                // Sử dụng UnitPrice và StoreID trực tiếp từ OrderDetails
+                string query = string.Format(@"SELECT
+                                    MONTH(o.CreatedAt) as Month,
+                                    DATENAME(MONTH, o.CreatedAt) as MonthName,
+                                    SUM(od.UnitPrice * od.Quantity) as Revenue,
+                                    COUNT(od.OrderDetailID) as OrderCount
+                                FROM OrderDetails od
+                                INNER JOIN Orders o ON od.OrderID = o.OrderID
+                                WHERE od.StoreID = {0} 
+                                    AND YEAR(o.CreatedAt) = {1}
+                                GROUP BY MONTH(o.CreatedAt), DATENAME(MONTH, o.CreatedAt)
+                                ORDER BY MONTH(o.CreatedAt)", storeId, year);
                 SqlDataAdapter da = new SqlDataAdapter(query, db.conn);
                 da.Fill(dt);
             }
-            catch
+            catch (Exception ex)
             {
+                HttpContext.Current.Response.Write("Lỗi SQL Doanh thu tháng: " + ex.Message);
                 dt = null;
             }
             finally
@@ -150,7 +149,7 @@ namespace SportShop.App_Code
         }
 
         /// <summary>
-        /// Lấy thống kê chi tiết: Doanh thu, Số đơn hàng, Số sản phẩm, Tồn kho
+        /// Lấy thống kê chi tiết: Doanh thu, Số đơn hàng, Số sản phẩm
         /// </summary>
         public DataTable LayThongKeChinh(int storeId)
         {
@@ -158,17 +157,18 @@ namespace SportShop.App_Code
             try
             {
                 db.moketnoi();
-                string query = $@"SELECT
-                                (SELECT ISNULL(SUM(od.Price * od.Quantity), 0) FROM OrderDetails od INNER JOIN Products p ON od.ProductID = p.ProductID WHERE p.StoreID = {storeId} AND od.Status = N'Đã giao') as TotalRevenue,
-                                (SELECT COUNT(DISTINCT od.OrderID) FROM OrderDetails od INNER JOIN Products p ON od.ProductID = p.ProductID WHERE p.StoreID = {storeId}) as TotalOrders,
-                                (SELECT COUNT(*) FROM Products WHERE StoreID = {storeId}) as TotalProducts,
-                                (SELECT ISNULL(SUM(StockQuantity), 0) FROM Products WHERE StoreID = {storeId}) as TotalStock";
+                string query = string.Format(@"SELECT
+                                (SELECT ISNULL(SUM(UnitPrice * Quantity), 0) FROM OrderDetails WHERE StoreID = {0}) as TotalRevenue,
+                                (SELECT COUNT(*) FROM OrderDetails WHERE StoreID = {0}) as TotalOrders,
+                                (SELECT COUNT(*) FROM Products WHERE StoreID = {0}) as TotalProducts,
+                                (SELECT ISNULL(SUM(StockQuantity), 0) FROM Products WHERE StoreID = {0}) as TotalStock", storeId);
                 SqlDataAdapter da = new SqlDataAdapter(query, db.conn);
                 da.Fill(dt);
             }
-            catch
+            catch (Exception ex)
             {
-                dt = null;
+                HttpContext.Current.Response.Write("Lỗi SQL: " + ex.Message);
+                throw;
             }
             finally
             {

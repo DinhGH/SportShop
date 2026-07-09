@@ -151,6 +151,7 @@
                 width: 100%;
                 border-collapse: collapse;
                 font-size: 14px;
+                text-align: center;
             }
 
             .chart-container table thead {
@@ -162,7 +163,7 @@
                 color: #1E293B;
                 font-weight: 600;
                 padding: 12px;
-                text-align: left;
+                text-align: center;
             }
 
             .chart-container table tbody tr {
@@ -176,6 +177,7 @@
             .chart-container table tbody td {
                 padding: 12px;
                 color: #334155;
+                text-align: center;
             }
 
             /* Empty Data */
@@ -238,7 +240,7 @@
         </style>
     </asp:Content>
 
-    <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
         <div class="dashboard-container container">
             <h1 style="margin-bottom: 30px; color: #333;">📊 Dashboard Cửa Hàng</h1>
 
@@ -284,7 +286,7 @@
                     <ItemTemplate>
                         <div class="product-item">
                             <img src='<%# Eval("ImageURL") %>' alt='<%# Eval("ProductName") %>' class="product-image"
-                                onerror="this.src='~/Assets/images/placeholder.png'" />
+                                onerror="handleImageError(this);" />
                             <div class="product-info">
                                 <div class="product-name">
                                     <%# Eval("ProductName") %>
@@ -306,24 +308,28 @@
                             </div>
                         </div>
                     </ItemTemplate>
-                    <EmptyItemTemplate>
-                        <div class="no-data">
-                            Chưa có dữ liệu sản phẩm bán chạy
-                        </div>
-                    </EmptyItemTemplate>
                 </asp:Repeater>
+                <asp:Panel ID="pnlEmptyProducts" runat="server" Visible="false">
+                    <div class="no-data">
+                        Chưa có dữ liệu sản phẩm bán chạy
+                    </div>
+                </asp:Panel>
             </div>
 
             <!-- Biểu đồ doanh thu theo tháng -->
             <div class="section-title">📊 Doanh Thu Theo Tháng</div>
             <div class="chart-container">
                 <asp:GridView ID="gvMonthlyRevenue" runat="server" CssClass="table table-striped"
-                    AutoGenerateColumns="false" GridLines="None">
+                    AutoGenerateColumns="false" GridLines="None" HeaderStyle-BackColor="#64748B"
+                    HeaderStyle-ForeColor="White" HeaderStyle-Font-Bold="true" RowStyle-BackColor="White"
+                    AlternatingRowStyle-BackColor="#F1F5F9" PagerStyle-HorizontalAlign="Center"
+                    PagerStyle-ForeColor="White" PagerStyle-BackColor="#0284C7" PagerStyle-Font-Bold="true">
                     <Columns>
-                        <asp:BoundField DataField="Month" HeaderText="Tháng" />
-                        <asp:BoundField DataField="MonthName" HeaderText="Tên Tháng" />
-                        <asp:BoundField DataField="Revenue" HeaderText="Doanh Thu" DataFormatString="{0:N0} đ" />
-                        <asp:BoundField DataField="OrderCount" HeaderText="Số Đơn Hàng" />
+                        <asp:BoundField DataField="Month" HeaderText="Tháng" ItemStyle-Width="50" />
+                        <asp:BoundField DataField="MonthName" HeaderText="Tên Tháng" ItemStyle-Width="150" />
+                        <asp:BoundField DataField="Revenue" HeaderText="Doanh Thu" DataFormatString="{0:N0} đ"
+                            ItemStyle-Width="200" />
+                        <asp:BoundField DataField="OrderCount" HeaderText="Số Đơn Hàng" ItemStyle-Width="150" />
                     </Columns>
                     <EmptyDataTemplate>
                         <div class="no-data">Chưa có dữ liệu doanh thu</div>

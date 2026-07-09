@@ -20,7 +20,7 @@ namespace SportShop.App_Code
             try
             {
                 db.moketnoi();
-                string query = $"SELECT * FROM Stores WHERE OwnerID = {ownerId}";
+                string query = string.Format("SELECT * FROM Stores WHERE OwnerID = {0}", ownerId);
                 SqlDataAdapter da = new SqlDataAdapter(query, db.conn);
                 da.Fill(dt);
             }
@@ -44,7 +44,7 @@ namespace SportShop.App_Code
             try
             {
                 db.moketnoi();
-                string query = $"SELECT * FROM Stores WHERE StoreID = {storeId}";
+                string query = string.Format("SELECT * FROM Stores WHERE StoreID = {0}", storeId);
                 SqlDataAdapter da = new SqlDataAdapter(query, db.conn);
                 da.Fill(dt);
             }
@@ -68,8 +68,7 @@ namespace SportShop.App_Code
             try
             {
                 db.moketnoi();
-                string query = $"INSERT INTO Stores (StoreName, OwnerID, StoreAddress, StorePhone) " +
-                               $"VALUES (N'{storeName}', {ownerId}, N'{address}', '{phone}')";
+                string query = string.Format("INSERT INTO Stores (StoreName, OwnerID, StoreAddress, StorePhone) VALUES (N'{0}', {1}, N'{2}', '{3}')", storeName, ownerId, address, phone);
                 SqlCommand cmd = new SqlCommand(query, db.conn);
                 result = cmd.ExecuteNonQuery();
             }
@@ -94,16 +93,14 @@ namespace SportShop.App_Code
             {
                 db.moketnoi();
                 string query;
-                
+
                 if (string.IsNullOrEmpty(logoUrl))
                 {
-                    query = $"UPDATE Stores SET StoreName = N'{storeName}', StoreAddress = N'{address}', StorePhone = '{phone}' " +
-                            $"WHERE StoreID = {storeId}";
+                    query = string.Format("UPDATE Stores SET StoreName = N'{0}', StoreAddress = N'{1}', StorePhone = '{2}' WHERE StoreID = {3}", storeName, address, phone, storeId);
                 }
                 else
                 {
-                    query = $"UPDATE Stores SET StoreName = N'{storeName}', StoreAddress = N'{address}', StorePhone = '{phone}', Logo = '{logoUrl}' " +
-                            $"WHERE StoreID = {storeId}";
+                    query = string.Format("UPDATE Stores SET StoreName = N'{0}', StoreAddress = N'{1}', StorePhone = '{2}', Logo = '{3}' WHERE StoreID = {4}", storeName, address, phone, logoUrl, storeId);
                 }
 
                 SqlCommand cmd = new SqlCommand(query, db.conn);

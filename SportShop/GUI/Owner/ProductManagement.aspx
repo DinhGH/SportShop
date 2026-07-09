@@ -381,7 +381,7 @@
         </style>
     </asp:Content>
 
-    <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
         <div class="product-management-container container">
             <div class="page-header">
                 <div class="page-title-group">
@@ -389,7 +389,7 @@
                     <p class="page-subtitle">Thêm, sửa, xóa sản phẩm và quản lý tồn kho</p>
                 </div>
                 <asp:Button ID="btnAddProduct" runat="server" Text="➕ Thêm Sản Phẩm Mới" CssClass="btn-add-product"
-                    OnClick="btnAddProduct_Click" />
+                    OnClick="btnAddProduct_Click" CausesValidation="false" />
             </div>
 
             <!-- Alert Messages -->
@@ -404,13 +404,13 @@
             <!-- Products Table -->
             <div class="products-table-container">
                 <asp:GridView ID="gvProducts" runat="server" AutoGenerateColumns="false" GridLines="None"
-                    CssClass="products-table">
+                    CssClass="products-table" OnRowCommand="ProductCommand_Click">
                     <Columns>
                         <asp:BoundField DataField="ProductID" HeaderText="ID" ItemStyle-Width="40px" />
                         <asp:TemplateField HeaderText="Ảnh" ItemStyle-Width="60px">
                             <ItemTemplate>
                                 <img src='<%# Eval("ImageURL") %>' alt='<%# Eval("ProductName") %>'
-                                    class="product-image" onerror="this.src='~/Assets/images/placeholder.png'" />
+                                    class="product-image" onerror="handleImageError(this);" />
                             </ItemTemplate>
                         </asp:TemplateField>
                         <asp:BoundField DataField="ProductName" HeaderText="Tên Sản Phẩm" ItemStyle-Width="150px" />
@@ -418,7 +418,8 @@
                             ItemStyle-Width="80px" />
                         <asp:TemplateField HeaderText="Tồn Kho" ItemStyle-Width="100px">
                             <ItemTemplate>
-                                <span class="stock-status <%# GetStockClass((int)Eval(" StockQuantity")) %>">
+                                <span class="stock-status <%# GetStockClass(Convert.ToInt32(Eval(" StockQuantity")))
+                                    %>">
                                     <%# Eval("StockQuantity") %> cái
                                 </span>
                             </ItemTemplate>
@@ -427,16 +428,17 @@
                         <asp:TemplateField HeaderText="Hành Động" ItemStyle-Width="200px">
                             <ItemTemplate>
                                 <div class="action-buttons">
-                                    <asp:LinkButton ID="btnEdit" runat="server" CssClass="btn-action btn-edit"
-                                        Text="✏️ Sửa" CommandName="Edit" CommandArgument='<%# Eval("ProductID") %>'
-                                        OnCommand="ProductCommand_Click" />
-                                    <asp:LinkButton ID="btnStock" runat="server" CssClass="btn-action btn-stock"
+                                    <asp:Button ID="btnEdit" runat="server" CssClass="btn-action btn-edit" Text="✏️ Sửa"
+                                        CommandName="EditProduct" CommandArgument='<%# Eval("ProductID") %>'
+                                        CausesValidation="false" />
+                                    <asp:Button ID="btnStock" runat="server" CssClass="btn-action btn-stock"
                                         Text="📊 Tồn Kho" CommandName="Stock" CommandArgument='<%# Eval("ProductID") %>'
-                                        OnCommand="ProductCommand_Click" />
-                                    <asp:LinkButton ID="btnDelete" runat="server" CssClass="btn-action btn-delete"
-                                        Text="🗑️ Xóa" CommandName="Delete" CommandArgument='<%# Eval("ProductID") %>'
-                                        OnCommand="ProductCommand_Click"
-                                        OnClientClick="return confirm('Bạn chắc chắn muốn xóa sản phẩm này?');" />
+                                        CausesValidation="false" />
+                                    <asp:Button ID="btnDelete" runat="server" CssClass="btn-action btn-delete"
+                                        Text="🗑️ Xóa" CommandName="DeleteProduct"
+                                        CommandArgument='<%# Eval("ProductID") %>'
+                                        OnClientClick="return confirm('Bạn chắc chắn muốn xóa sản phẩm này?');"
+                                        CausesValidation="false" />
                                 </div>
                             </ItemTemplate>
                         </asp:TemplateField>
@@ -458,67 +460,65 @@
                     <button type="button" class="modal-close" onclick="closeProductModal()">&times;</button>
                 </div>
 
-                <form runat="server">
-                    <asp:HiddenField ID="hfProductID" runat="server" Value="0" />
+                <asp:HiddenField ID="hfProductID" runat="server" Value="0" />
+
+                <div class="form-group">
+                    <label for="txtProductName">Tên Sản Phẩm <span style="color: #E11D48;">*</span></label>
+                    <asp:TextBox ID="txtProductName" runat="server" CssClass="form-control" MaxLength="100"
+                        Placeholder="Nhập tên sản phẩm"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="rfvProductName" runat="server" ControlToValidate="txtProductName"
+                        ErrorMessage="Tên sản phẩm không được để trống" ForeColor="#E11D48" Display="Dynamic">
+                    </asp:RequiredFieldValidator>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtDescription">Mô Tả</label>
+                    <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" MaxLength="500"
+                        Placeholder="Nhập mô tả sản phẩm" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                    <div class="form-group">
+                        <label for="txtPrice">Giá Bán <span style="color: #E11D48;">*</span></label>
+                        <asp:TextBox ID="txtPrice" runat="server" CssClass="form-control" Placeholder="0"
+                            TextMode="Number"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvPrice" runat="server" ControlToValidate="txtPrice"
+                            ErrorMessage="Giá không được để trống" ForeColor="#E11D48" Display="Dynamic">
+                        </asp:RequiredFieldValidator>
+                    </div>
 
                     <div class="form-group">
-                        <label for="txtProductName">Tên Sản Phẩm <span style="color: #E11D48;">*</span></label>
-                        <asp:TextBox ID="txtProductName" runat="server" CssClass="form-control" MaxLength="100"
-                            Placeholder="Nhập tên sản phẩm"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvProductName" runat="server"
-                            ControlToValidate="txtProductName" ErrorMessage="Tên sản phẩm không được để trống"
+                        <label for="txtStockQuantity">Số Lượng <span style="color: #E11D48;">*</span></label>
+                        <asp:TextBox ID="txtStockQuantity" runat="server" CssClass="form-control" Placeholder="0"
+                            TextMode="Number"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvStockQuantity" runat="server"
+                            ControlToValidate="txtStockQuantity" ErrorMessage="Số lượng không được để trống"
                             ForeColor="#E11D48" Display="Dynamic"></asp:RequiredFieldValidator>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="txtDescription">Mô Tả</label>
-                        <asp:TextBox ID="txtDescription" runat="server" CssClass="form-control" MaxLength="500"
-                            Placeholder="Nhập mô tả sản phẩm" TextMode="MultiLine" Rows="3"></asp:TextBox>
-                    </div>
+                <div class="form-group">
+                    <label for="ddlCategory">Danh Mục <span style="color: #E11D48;">*</span></label>
+                    <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control">
+                        <asp:ListItem Value="">-- Chọn danh mục --</asp:ListItem>
+                    </asp:DropDownList>
+                    <asp:RequiredFieldValidator ID="rfvCategory" runat="server" ControlToValidate="ddlCategory"
+                        InitialValue="" ErrorMessage="Danh mục không được để trống" ForeColor="#E11D48"
+                        Display="Dynamic"></asp:RequiredFieldValidator>
+                </div>
 
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                        <div class="form-group">
-                            <label for="txtPrice">Giá Bán <span style="color: #E11D48;">*</span></label>
-                            <asp:TextBox ID="txtPrice" runat="server" CssClass="form-control" Placeholder="0"
-                                TextMode="Number"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvPrice" runat="server" ControlToValidate="txtPrice"
-                                ErrorMessage="Giá không được để trống" ForeColor="#E11D48" Display="Dynamic">
-                            </asp:RequiredFieldValidator>
-                        </div>
+                <div class="form-group">
+                    <label for="txtImageURL">URL Ảnh</label>
+                    <asp:TextBox ID="txtImageURL" runat="server" CssClass="form-control" MaxLength="500"
+                        Placeholder="https://..."></asp:TextBox>
+                    <div class="form-text">Nhập đường link ảnh hoặc để trống dùng ảnh mặc định</div>
+                </div>
 
-                        <div class="form-group">
-                            <label for="txtStockQuantity">Số Lượng <span style="color: #E11D48;">*</span></label>
-                            <asp:TextBox ID="txtStockQuantity" runat="server" CssClass="form-control" Placeholder="0"
-                                TextMode="Number"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvStockQuantity" runat="server"
-                                ControlToValidate="txtStockQuantity" ErrorMessage="Số lượng không được để trống"
-                                ForeColor="#E11D48" Display="Dynamic"></asp:RequiredFieldValidator>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="ddlCategory">Danh Mục <span style="color: #E11D48;">*</span></label>
-                        <asp:DropDownList ID="ddlCategory" runat="server" CssClass="form-control">
-                            <asp:ListItem Value="">-- Chọn danh mục --</asp:ListItem>
-                        </asp:DropDownList>
-                        <asp:RequiredFieldValidator ID="rfvCategory" runat="server" ControlToValidate="ddlCategory"
-                            InitialValue="" ErrorMessage="Danh mục không được để trống" ForeColor="#E11D48"
-                            Display="Dynamic"></asp:RequiredFieldValidator>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="txtImageURL">URL Ảnh</label>
-                        <asp:TextBox ID="txtImageURL" runat="server" CssClass="form-control" MaxLength="500"
-                            Placeholder="https://..."></asp:TextBox>
-                        <div class="form-text">Nhập đường link ảnh hoặc để trống dùng ảnh mặc định</div>
-                    </div>
-
-                    <div class="modal-buttons">
-                        <asp:Button ID="btnSave" runat="server" Text="💾 Lưu" CssClass="btn btn-primary"
-                            OnClick="btnSave_Click" />
-                        <button type="button" class="btn btn-secondary" onclick="closeProductModal()">❌ Hủy</button>
-                    </div>
-                </form>
+                <div class="modal-buttons">
+                    <asp:Button ID="btnSave" runat="server" Text="💾 Lưu" CssClass="btn btn-primary"
+                        OnClick="btnSave_Click" />
+                    <button type="button" class="btn btn-secondary" onclick="closeProductModal()">❌ Hủy</button>
+                </div>
             </div>
         </div>
 
@@ -530,37 +530,35 @@
                     <button type="button" class="modal-close" onclick="closeStockModal()">&times;</button>
                 </div>
 
-                <form runat="server">
-                    <asp:HiddenField ID="hfStockProductID" runat="server" Value="0" />
+                <asp:HiddenField ID="hfStockProductID" runat="server" Value="0" />
 
-                    <div class="form-group">
-                        <label>Tên Sản Phẩm</label>
-                        <asp:Label ID="lblStockProductName" runat="server" CssClass="form-control"
-                            style="background-color: #F1F5F9; border: 1px solid #E2E8F0; padding: 10px 12px; border-radius: 8px;">
-                        </asp:Label>
-                    </div>
+                <div class="form-group">
+                    <label>Tên Sản Phẩm</label>
+                    <asp:Label ID="lblStockProductName" runat="server" CssClass="form-control"
+                        style="background-color: #F1F5F9; border: 1px solid #E2E8F0; padding: 10px 12px; border-radius: 8px;">
+                    </asp:Label>
+                </div>
 
-                    <div class="form-group">
-                        <label>Tồn Kho Hiện Tại</label>
-                        <asp:Label ID="lblCurrentStock" runat="server" CssClass="form-control"
-                            style="background-color: #F1F5F9; border: 1px solid #E2E8F0; padding: 10px 12px; border-radius: 8px;">
-                        </asp:Label>
-                    </div>
+                <div class="form-group">
+                    <label>Tồn Kho Hiện Tại</label>
+                    <asp:Label ID="lblCurrentStock" runat="server" CssClass="form-control"
+                        style="background-color: #F1F5F9; border: 1px solid #E2E8F0; padding: 10px 12px; border-radius: 8px;">
+                    </asp:Label>
+                </div>
 
-                    <div class="form-group">
-                        <label for="txtNewStock">Số Lượng Mới <span style="color: #E11D48;">*</span></label>
-                        <div class="stock-input-group">
-                            <asp:TextBox ID="txtNewStock" runat="server" CssClass="form-control"
-                                Placeholder="Nhập số lượng mới" TextMode="Number"></asp:TextBox>
-                        </div>
+                <div class="form-group">
+                    <label for="txtNewStock">Số Lượng Mới <span style="color: #E11D48;">*</span></label>
+                    <div class="stock-input-group">
+                        <asp:TextBox ID="txtNewStock" runat="server" CssClass="form-control"
+                            Placeholder="Nhập số lượng mới" TextMode="Number"></asp:TextBox>
                     </div>
+                </div>
 
-                    <div class="modal-buttons">
-                        <asp:Button ID="btnUpdateStock" runat="server" Text="✅ Cập Nhật" CssClass="btn btn-primary"
-                            OnClick="btnUpdateStock_Click" />
-                        <button type="button" class="btn btn-secondary" onclick="closeStockModal()">❌ Hủy</button>
-                    </div>
-                </form>
+                <div class="modal-buttons">
+                    <asp:Button ID="btnUpdateStock" runat="server" Text="✅ Cập Nhật" CssClass="btn btn-primary"
+                        OnClick="btnUpdateStock_Click" CausesValidation="false" />
+                    <button type="button" class="btn btn-secondary" onclick="closeStockModal()">❌ Hủy</button>
+                </div>
             </div>
         </div>
 

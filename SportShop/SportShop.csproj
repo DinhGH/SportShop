@@ -67,6 +67,40 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+  <Content Include="GUI\Owner\Dashboard.aspx" />
+  <Compile Include="GUI\Owner\Dashboard.aspx.cs">
+    <DependentUpon>Dashboard.aspx</DependentUpon>
+    <SubType>ASPXCodeBehind</SubType>
+  </Compile>
+  <Compile Include="GUI\Owner\Dashboard.aspx.designer.cs">
+    <DependentUpon>Dashboard.aspx</DependentUpon>
+  </Compile>
+  <Content Include="GUI\Owner\ProductManagement.aspx" />
+  <Compile Include="GUI\Owner\ProductManagement.aspx.cs">
+    <DependentUpon>ProductManagement.aspx</DependentUpon>
+    <SubType>ASPXCodeBehind</SubType>
+  </Compile>
+  <Compile Include="GUI\Owner\ProductManagement.aspx.designer.cs">
+    <DependentUpon>ProductManagement.aspx</DependentUpon>
+  </Compile>
+  <Content Include="GUI\Owner\StoreInfo.aspx" />
+  <Compile Include="GUI\Owner\StoreInfo.aspx.cs">
+    <DependentUpon>StoreInfo.aspx</DependentUpon>
+    <SubType>ASPXCodeBehind</SubType>
+  </Compile>
+  <Compile Include="GUI\Owner\StoreInfo.aspx.designer.cs">
+    <DependentUpon>StoreInfo.aspx</DependentUpon>
+  </Compile>
+  <Content Include="GUI\Owner\OrderManagement.aspx" />
+  <Compile Include="GUI\Owner\OrderManagement.aspx.cs">
+    <DependentUpon>OrderManagement.aspx</DependentUpon>
+    <SubType>ASPXCodeBehind</SubType>
+  </Compile>
+  <Compile Include="GUI\Owner\OrderManagement.aspx.designer.cs">
+    <DependentUpon>OrderManagement.aspx</DependentUpon>
+  </Compile>
+</ItemGroup>
+  <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="App_Data\Database1.mdf" />
     <Content Include="App_Data\Database1_log.ldf">
@@ -89,16 +123,17 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Content Include="App_Code\CategoryDAL.cs" />
-    <Content Include="App_Code\CartDAL.cs" />
+    <Compile Include="App_Code\CategoryDAL.cs" />
+    <Compile Include="App_Code\CartDAL.cs" />
     <Compile Include="App_Code\ConnectionProvider.cs" />
-    <Content Include="App_Code\UserDAL.cs" />
-    <Content Include="App_Code\RoleDAL.cs" />
-    <Content Include="App_Code\StoreDAL.cs" />
-    <Content Include="App_Code\OrderDetailDAL.cs" />
-    <Content Include="App_Code\OrderDAL.cs" />
-    <Content Include="App_Code\ProductDAL.cs" />
-    <Content Include="App_Code\TicketDAL.cs" />
+    <Compile Include="App_Code\UserDAL.cs" />
+    <Compile Include="App_Code\RoleDAL.cs" />
+    <Compile Include="App_Code\StoreDAL.cs" />
+    <Compile Include="App_Code\OrderDetailDAL.cs" />
+    <Compile Include="App_Code\OrderDAL.cs" />
+    <Compile Include="App_Code\ProductDAL.cs" />
+    <Compile Include="App_Code\StatisticsDAL.cs" />
+    <Compile Include="App_Code\TicketDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

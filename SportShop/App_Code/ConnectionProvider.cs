@@ -14,8 +14,8 @@ namespace SportShop
         // Hàm mở kết nối
         public void moketnoi()
         {
-            string chuoiketnoi = HttpContext.Current.Server.MapPath("~/App_Data/SportShopDB.mdf");
-            string con = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={chuoiketnoi};Integrated Security=True";
+            string chuoiketnoi = HttpContext.Current.Server.MapPath("~/App_Data/Database1.mdf");
+            string con = string.Format(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={0};Integrated Security=True", chuoiketnoi);
             conn = new SqlConnection(con);
             conn.Open();
         }
@@ -33,20 +33,10 @@ namespace SportShop
         public DataTable laydulieu(string query)
         {
             DataTable dt = new DataTable();
-            try
-            {
-                moketnoi();
-                SqlDataAdapter da = new SqlDataAdapter(query, conn);
-                da.Fill(dt);
-            }
-            catch
-            {
-                dt = null;
-            }
-            finally
-            {
-                dongketnoi();
-            }
+            moketnoi();
+            SqlDataAdapter da = new SqlDataAdapter(query, conn);
+            da.Fill(dt);
+            dongketnoi();
             return dt;
         }
 

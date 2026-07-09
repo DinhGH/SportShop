@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+using SportShop.App_Code;
 
 namespace SportShop
 {
@@ -18,7 +20,7 @@ namespace SportShop
                 // Nếu đã đăng nhập sẵn rồi thì tự động chuyển vào trang chủ luôn
                 if (Session["UserEmail"] != null)
                 {
-                    Response.Redirect("~/GUI/Customer/DanhSachSanPham.aspx");
+                    Response.Redirect("~/GUI/Owner/Dashboard.aspx");
                 }
             }
         }
@@ -43,15 +45,15 @@ namespace SportShop
                 string roleId = dtUser.Rows[0]["RoleID"].ToString();
                 if (roleId == "1") // Admin
                 {
-                    Response.Redirect("~/GUI/Admin/QuanLyKhieuNai.aspx");
+                    Response.Redirect("~/GUI/Owner/Dashboard.aspx");
                 }
                 else if (roleId == "2") // Owner
                 {
-                    Response.Redirect("~/GUI/Owner/QuanLySanPham.aspx");
+                    Response.Redirect("~/GUI/Owner/ProductManagement.aspx");
                 }
                 else // Customer (Mã 3)
                 {
-                    Response.Redirect("~/GUI/Customer/DanhSachSanPham.aspx");
+                    Response.Redirect("~/GUI/Owner/Dashboard.aspx");
                 }
             }
             else

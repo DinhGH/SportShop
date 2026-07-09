@@ -16,12 +16,6 @@ namespace SportShop.GUI.Owner
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Kiểm tra xem người dùng đã đăng nhập và là Owner chưa
-            if (Session["UserRole"] == null || Session["UserRole"].ToString() != "Owner")
-            {
-                Response.Redirect("~/Login.aspx");
-            }
-
             if (!IsPostBack)
             {
                 LoadCategories();
@@ -138,36 +132,18 @@ namespace SportShop.GUI.Owner
             ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "showProductModal('Thêm Sản Phẩm Mới');", true);
         }
 
-        protected void ProductCommand_Click(object sender, CommandEventArgs e)
+        protected void ProductCommand_Click(object sender, GridViewCommandEventArgs e)
         {
             try
             {
                 int productId = Convert.ToInt32(e.CommandArgument);
-                int ownerId = Convert.ToInt32(Session["UserID"]);
-                DataTable dtStore = storeDAL.LayCuaHangTheoChu(ownerId);
 
-                if (dtStore == null || dtStore.Rows.Count == 0)
-                {
-                    DisplayMessage("Lỗi: Không tìm thấy cửa hàng của bạn.", MessageType.Error);
-                    return;
-                }
-
-                int storeId = Convert.ToInt32(dtStore.Rows[0]["StoreID"]);
-
-                // Verify product belongs to store
-                DataTable dtProduct = productDAL.LaySanPhamTheoID(productId);
-                if (dtProduct == null || dtProduct.Rows.Count == 0 || Convert.ToInt32(dtProduct.Rows[0]["StoreID"]) != storeId)
-                {
-                    DisplayMessage("Lỗi: Bạn không có quyền thao tác sản phẩm này.", MessageType.Error);
-                    return;
-                }
-
-                if (e.CommandName == "Edit")
+                if (e.CommandName == "EditProduct")
                 {
                     LoadProductForEdit(productId);
                     ScriptManager.RegisterStartupScript(this, this.GetType(), "showModal", "showProductModal('Chỉnh Sửa Sản Phẩm');", true);
                 }
-                else if (e.CommandName == "Delete")
+                else if (e.CommandName == "DeleteProduct")
                 {
                     int result = productDAL.XoaSanPham(productId);
                     if (result > 0)
@@ -275,7 +251,7 @@ namespace SportShop.GUI.Owner
                 else
                 {
                     // Update existing product
-                    result = productDAL.SuaSanPham(productId, productName, description, price, categoryId, imageUrl);
+                    result = productDAL.SuaSanPham(productId, productName, description, price, quantity, categoryId, imageUrl);
                 }
 
                 if (result > 0)
@@ -300,7 +276,12 @@ namespace SportShop.GUI.Owner
             try
             {
                 int productId = Convert.ToInt32(hfStockProductID.Value);
-                int newStock = Convert.ToInt32(txtNewStock.Text);
+                int newStock = 0;
+                if (!int.TryParse(txtNewStock.Text, out newStock))
+                {
+                    DisplayMessage("Số lượng không hợp lệ.", MessageType.Error);
+                    return;
+                }
 
                 if (newStock < 0)
                 {
@@ -318,12 +299,12 @@ namespace SportShop.GUI.Owner
                 }
                 else
                 {
-                    DisplayMessage("❌ Lỗi khi cập nhật tồn kho.", MessageType.Error);
+                    DisplayMessage("❌ Lỗi khi cập nhật tồn kho (DAL returned 0).", MessageType.Error);
                 }
             }
             catch (Exception ex)
             {
-                DisplayMessage($"❌ Lỗi: {ex.Message}", MessageType.Error);
+                DisplayMessage($"❌ Lỗi hệ thống: {ex.Message}", MessageType.Error);
             }
         }
 
@@ -355,5 +336,10 @@ namespace SportShop.GUI.Owner
         }
 
         private enum MessageType { Success, Error }
+
+        protected void gvProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

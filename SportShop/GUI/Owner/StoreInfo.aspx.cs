@@ -16,12 +16,6 @@ namespace SportShop.GUI.Owner
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Kiểm tra xem người dùng đã đăng nhập và là Owner chưa
-            if (Session["UserRole"] == null || Session["UserRole"].ToString() != "Owner")
-            {
-                Response.Redirect("~/Login.aspx");
-            }
-
             if (!IsPostBack)
             {
                 LoadStoreInfo();
@@ -52,7 +46,7 @@ namespace SportShop.GUI.Owner
                 txtStorePhone.Text = row["StorePhone"].ToString();
 
                 // Xử lý Logo
-                if (row["Logo"] != null && !string.IsNullOrEmpty(row["Logo"].ToString()))
+                if (dtStore.Columns.Contains("Logo") && row["Logo"] != null && !string.IsNullOrEmpty(row["Logo"].ToString()))
                 {
                     string logoUrl = row["Logo"].ToString();
                     txtLogoUrl.Text = logoUrl;
@@ -187,7 +181,7 @@ namespace SportShop.GUI.Owner
 
         private void DisableForm()
         {
-            foreach (Control ctrl in form1.Controls)
+            foreach (Control ctrl in Page.Form.Controls)
             {
                 DisableControlsRecursive(ctrl);
             }
@@ -195,9 +189,9 @@ namespace SportShop.GUI.Owner
 
         private void DisableControlsRecursive(Control control)
         {
-            if (control is TextBox || control is FileUpload)
+            if (control is WebControl)
             {
-                control.Enabled = false;
+                ((WebControl)control).Enabled = false;
             }
 
             foreach (Control ctrl in control.Controls)

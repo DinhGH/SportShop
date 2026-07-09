@@ -16,8 +16,8 @@ namespace SportShop.GUI.Owner
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Kiểm tra xem người dùng đã đăng nhập và là Owner chưa
-            if (Session["UserRole"] == null || Session["UserRole"].ToString() != "Owner")
+            // Kiểm tra xem người dùng đã đăng nhập chưa
+            if (Session["UserID"] == null)
             {
                 Response.Redirect("~/Login.aspx");
             }
@@ -37,7 +37,7 @@ namespace SportShop.GUI.Owner
 
                 // Lấy thông tin cửa hàng của Owner
                 DataTable dtStore = storeDAL.LayCuaHangTheoChu(ownerId);
-                
+
                 if (dtStore == null || dtStore.Rows.Count == 0)
                 {
                     // Owner chưa có cửa hàng
@@ -153,7 +153,7 @@ namespace SportShop.GUI.Owner
 
         private void DisplayNoStoreMessage()
         {
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert", 
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "alert",
                 "alert('Bạn chưa có cửa hàng nào. Vui lòng liên hệ quản trị viên để tạo cửa hàng.');", true);
         }
     }

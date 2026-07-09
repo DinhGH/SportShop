@@ -240,7 +240,7 @@
         </style>
     </asp:Content>
 
-    <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
         <div class="store-info-container container">
             <div class="page-header">
                 <h1 class="page-title">⚙️ Quản Lý Thông Tin Cửa Hàng</h1>
@@ -262,79 +262,78 @@
 
             <!-- Form Container -->
             <div class="form-container">
-                <form runat="server">
-                    <!-- Thông Tin Cơ Bản -->
-                    <div class="form-section">
-                        <div class="section-title">Thông Tin Cơ Bản</div>
+                <!-- Thông Tin Cơ Bản -->
+                <div class="form-section">
+                    <div class="section-title">Thông Tin Cơ Bản</div>
 
-                        <div class="form-group">
-                            <label for="txtStoreName">Tên Cửa Hàng <span style="color: #E11D48;">*</span></label>
-                            <asp:TextBox ID="txtStoreName" runat="server" CssClass="form-control" MaxLength="100"
-                                Placeholder="Nhập tên cửa hàng"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvStoreName" runat="server"
-                                ControlToValidate="txtStoreName" ErrorMessage="Tên cửa hàng không được để trống"
-                                CssClass="form-text" ForeColor="#E11D48" Display="Dynamic"></asp:RequiredFieldValidator>
-                            <div class="form-text">Tên cửa hàng sẽ hiển thị trên website</div>
-                        </div>
+                    <div class="form-group">
+                        <label for="txtStoreName">Tên Cửa Hàng <span style="color: #E11D48;">*</span></label>
+                        <asp:TextBox ID="txtStoreName" runat="server" CssClass="form-control" MaxLength="100"
+                            Placeholder="Nhập tên cửa hàng"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvStoreName" runat="server" ControlToValidate="txtStoreName"
+                            ErrorMessage="Tên cửa hàng không được để trống" CssClass="form-text" ForeColor="#E11D48"
+                            Display="Dynamic"></asp:RequiredFieldValidator>
+                        <div class="form-text">Tên cửa hàng sẽ hiển thị trên website</div>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="txtStoreAddress">Địa Chỉ <span style="color: #E11D48;">*</span></label>
-                            <asp:TextBox ID="txtStoreAddress" runat="server" CssClass="form-control" MaxLength="200"
-                                Placeholder="Nhập địa chỉ cửa hàng" TextMode="MultiLine" Rows="3"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvStoreAddress" runat="server"
-                                ControlToValidate="txtStoreAddress" ErrorMessage="Địa chỉ không được để trống"
-                                CssClass="form-text" ForeColor="#E11D48" Display="Dynamic"></asp:RequiredFieldValidator>
-                            <div class="form-text">Ví dụ: 123 Đường ABC, Quận 1, TP. HCM</div>
-                        </div>
+                    <div class="form-group">
+                        <label for="txtStoreAddress">Địa Chỉ <span style="color: #E11D48;">*</span></label>
+                        <asp:TextBox ID="txtStoreAddress" runat="server" CssClass="form-control" MaxLength="200"
+                            Placeholder="Nhập địa chỉ cửa hàng" TextMode="MultiLine" Rows="3"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvStoreAddress" runat="server"
+                            ControlToValidate="txtStoreAddress" ErrorMessage="Địa chỉ không được để trống"
+                            CssClass="form-text" ForeColor="#E11D48" Display="Dynamic"></asp:RequiredFieldValidator>
+                        <div class="form-text">Ví dụ: 123 Đường ABC, Quận 1, TP. HCM</div>
+                    </div>
 
-                        <div class="form-group">
-                            <label for="txtStorePhone">Số Điện Thoại <span style="color: #E11D48;">*</span></label>
-                            <asp:TextBox ID="txtStorePhone" runat="server" CssClass="form-control" MaxLength="20"
-                                Placeholder="Nhập số điện thoại"></asp:TextBox>
-                            <asp:RequiredFieldValidator ID="rfvStorePhone" runat="server"
-                                ControlToValidate="txtStorePhone" ErrorMessage="Số điện thoại không được để trống"
-                                CssClass="form-text" ForeColor="#E11D48" Display="Dynamic"></asp:RequiredFieldValidator>
-                            <asp:RegularExpressionValidator ID="revStorePhone" runat="server"
-                                ControlToValidate="txtStorePhone" ValidationExpression="^[0-9\-\+\s\(\)]{10,}$"
-                                ErrorMessage="Số điện thoại không hợp lệ" CssClass="form-text" ForeColor="#E11D48"
-                                Display="Dynamic"></asp:RegularExpressionValidator>
-                            <div class="form-text">Ví dụ: 0123 456 789 hoặc +84 123 456 789</div>
+                    <div class="form-group">
+                        <label for="txtStorePhone">Số Điện Thoại <span style="color: #E11D48;">*</span></label>
+                        <asp:TextBox ID="txtStorePhone" runat="server" CssClass="form-control" MaxLength="20"
+                            Placeholder="Nhập số điện thoại"></asp:TextBox>
+                        <asp:RequiredFieldValidator ID="rfvStorePhone" runat="server" ControlToValidate="txtStorePhone"
+                            ErrorMessage="Số điện thoại không được để trống" CssClass="form-text" ForeColor="#E11D48"
+                            Display="Dynamic"></asp:RequiredFieldValidator>
+                        <asp:RegularExpressionValidator ID="revStorePhone" runat="server"
+                            ControlToValidate="txtStorePhone" ValidationExpression="^[0-9\-\+\s\(\)]{10,}$"
+                            ErrorMessage="Số điện thoại không hợp lệ" CssClass="form-text" ForeColor="#E11D48"
+                            Display="Dynamic"></asp:RegularExpressionValidator>
+                        <div class="form-text">Ví dụ: 0123 456 789 hoặc +84 123 456 789</div>
+                    </div>
+                </div>
+
+                <!-- Logo -->
+                <div class="form-section">
+                    <div class="section-title">Logo Cửa Hàng</div>
+
+                    <div class="logo-preview-container">
+                        <div class="logo-preview" id="logoPreview">
+                            <span class="empty">🏪</span>
                         </div>
                     </div>
 
-                    <!-- Logo -->
-                    <div class="form-section">
-                        <div class="section-title">Logo Cửa Hàng</div>
-
-                        <div class="logo-preview-container">
-                            <div class="logo-preview" id="logoPreview">
-                                <span class="empty">🏪</span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="fuLogo">Tải Lên Logo</label>
-                            <asp:FileUpload ID="fuLogo" runat="server" CssClass="form-control" Accept="image/*" />
-                            <div class="form-text">Định dạng: JPG, PNG (Tối đa 5MB)</div>
-                            <asp:Label ID="lblCurrentLogo" runat="server" CssClass="form-text"
-                                style="display: block; margin-top: 8px;"></asp:Label>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="txtLogoUrl">URL Logo (Nếu có)</label>
-                            <asp:TextBox ID="txtLogoUrl" runat="server" CssClass="form-control"
-                                Placeholder="Hoặc dán link ảnh trực tiếp" MaxLength="500"></asp:TextBox>
-                            <div class="form-text">Nếu không tải file, bạn có thể dán URL của ảnh</div>
-                        </div>
+                    <div class="form-group">
+                        <label for="fuLogo">Tải Lên Logo</label>
+                        <asp:FileUpload ID="fuLogo" runat="server" CssClass="form-control" Accept="image/*" />
+                        <div class="form-text">Định dạng: JPG, PNG (Tối đa 5MB)</div>
+                        <asp:Label ID="lblCurrentLogo" runat="server" CssClass="form-text"
+                            style="display: block; margin-top: 8px;"></asp:Label>
                     </div>
 
-                    <!-- Action Buttons -->
-                    <div class="button-group">
-                        <asp:Button ID="btnSave" runat="server" Text="💾 Lưu Thay Đổi" CssClass="btn btn-primary"
-                            OnClick="btnSave_Click" />
-                        <asp:Button ID="btnCancel" runat="server" Text="❌ Hủy" CssClass="btn btn-secondary"
-                            OnClick="btnCancel_Click" CausesValidation="false" />
+                    <div class="form-group">
+                        <label for="txtLogoUrl">URL Logo (Nếu có)</label>
+                        <asp:TextBox ID="txtLogoUrl" runat="server" CssClass="form-control"
+                            Placeholder="Hoặc dán link ảnh trực tiếp" MaxLength="500"></asp:TextBox>
+                        <div class="form-text">Nếu không tải file, bạn có thể dán URL của ảnh</div>
                     </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="button-group">
+                    <asp:Button ID="btnSave" runat="server" Text="💾 Lưu Thay Đổi" CssClass="btn btn-primary"
+                        OnClick="btnSave_Click" />
+                    <asp:Button ID="btnCancel" runat="server" Text="❌ Hủy" CssClass="btn btn-secondary"
+                        OnClick="btnCancel_Click" CausesValidation="false" />
+                </div>
                 </form>
             </div>
         </div>

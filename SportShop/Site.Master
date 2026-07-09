@@ -1,8 +1,9 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="BaiTapDataBase.Site" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="SportShop.Site" %>
 
 <!DOCTYPE html>
 <html>
 <head runat="server">
+    <meta charset="utf-8" />
     <title>SportShop - Hệ Thống Cửa Hàng Thể Thao</title>
     <!-- Nhúng Google Fonts & FontAwesome để làm icon cho đẹp -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -78,27 +79,35 @@
             border-top: 1px solid #e2e8f0; 
         }
         </style>
+    <script>
+        function handleImageError(img) {
+            img.onerror = null;
+            img.src = '<%= ResolveClientUrl("~/Assets/images/placeholder.png") %>';
+        }
+    </script>
     <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server" />
         
         <!-- NAVBAR CHUNG -->
         <header class="navbar">
             <!-- Tên nền tảng -->
-            <a href="~/GUI/Customer/DanhSachSanPham.aspx" runat="server" class="nav-logo">
+            <a href="~/Login.aspx" runat="server" class="nav-logo">
                 <i class="fa-solid fa-dumbbell"></i> SportShop
             </a>
             
             <!-- Cụm Menu chức năng dựa trên Session -->
             <nav class="nav-menu">
-                <a href="~/GUI/Customer/DanhSachSanPham.aspx" runat="server" class="nav-item">Sản phẩm</a>
-                <a href="~/GUI/Customer/LichSuDonHang.aspx" runat="server" class="nav-item"><i class="fa-solid fa-clock-history"></i> Đơn hàng</a>
+                <asp:HyperLink ID="lnkProducts" runat="server" NavigateUrl="~/GUI/Owner/ProductManagement.aspx" CssClass="nav-item"><i class="fa-solid fa-box-open"></i> Sản phẩm</asp:HyperLink>
+                <asp:HyperLink ID="lnkDashboard" runat="server" NavigateUrl="~/GUI/Owner/Dashboard.aspx" CssClass="nav-item"><i class="fa-solid fa-chart-line"></i> Dashboard</asp:HyperLink>
+                <asp:HyperLink ID="lnkOrders" runat="server" NavigateUrl="~/GUI/Owner/OrderManagement.aspx" CssClass="nav-item"><i class="fa-solid fa-clipboard-list"></i> Đơn hàng</asp:HyperLink>
                 
-                <!-- Nút Giỏ hàng -->
-                <a href="~/GUI/Customer/XemGioHang.aspx" runat="server" class="nav-item" style="position: relative;">
-                    <i class="fa-solid fa-cart-shopping-fast fa-lg"></i> Giỏ hàng
-                </a>
+                <!-- Nút Cửa hàng -->
+                <asp:HyperLink ID="lnkStore" runat="server" NavigateUrl="~/GUI/Owner/StoreInfo.aspx" CssClass="nav-item">
+                    <i class="fa-solid fa-store"></i> Cửa hàng
+                </asp:HyperLink>
 
                 <!-- Thông tin User -->
                 <span class="user-info">
