@@ -17,10 +17,23 @@ namespace SportShop
         {
             if (!IsPostBack)
             {
-                // Nếu đã đăng nhập sẵn rồi thì tự động chuyển vào trang chủ luôn
-                if (Session["UserEmail"] != null)
+                // Nếu đã có Session đăng nhập sẵn, phải check đúng Role để trả họ về đúng hành tinh của họ
+                if (Session["UserEmail"] != null && Session["RoleID"] != null)
                 {
-                    Response.Redirect("~/GUI/Customer/DanhSachSanPham.aspx");
+                    string roleId = Session["RoleID"].ToString();
+
+                    if (roleId == "1") // Trả Admin về trang quản trị
+                    {
+                        Response.Redirect("~/GUI/Admin/Dashboard.aspx");
+                    }
+                    else if (roleId == "2") // Trả Owner về trang chủ shop
+                    {
+                        Response.Redirect("~/GUI/Owner/DashboardOwner.aspx");
+                    }
+                    else // Khách hàng
+                    {
+                        Response.Redirect("~/GUI/Customer/DanhSachSanPham.aspx");
+                    }
                 }
             }
         }
@@ -45,11 +58,11 @@ namespace SportShop
                 string roleId = dtUser.Rows[0]["RoleID"].ToString();
                 if (roleId == "1") // Admin
                 {
-                    Response.Redirect("~/GUI/Admin/QuanLyKhieuNai.aspx");
+                    Response.Redirect("~/GUI/Admin/Dashboard.aspx");
                 }
                 else if (roleId == "2") // Owner
                 {
-                    Response.Redirect("~/GUI/Owner/QuanLySanPham.aspx");
+                    Response.Redirect("~/GUI/Owner/DashboardOwner.aspx");
                 }
                 else // Customer (Mã 3)
                 {

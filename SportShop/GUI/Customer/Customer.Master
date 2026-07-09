@@ -1,0 +1,144 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Customer.master.cs" Inherits="SportShop.GUI.Customer.CustomerMaster" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>SportShop - Hệ Thống Cửa Hàng Thể Thao</title>
+    <!-- Nhúng FontAwesome làm icon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f8fafc; /* Nền xám sáng */
+            color: #1e293b; /* Chữ tối màu */
+        }
+
+        /* NAVBAR NGANG CHO CUSTOMER */
+        .navbar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background-color: #ffffff; /* Nền trắng */
+            padding: 15px 30px; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-logo { 
+            font-size: 24px; 
+            font-weight: bold; 
+            color: #0284c7; /* Điểm nhấn xanh dương */
+            text-decoration: none; 
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-menu { display: flex; gap: 25px; align-items: center; }
+        .nav-item { 
+            color: #475569; /* Xám tối */
+            text-decoration: none; 
+            font-weight: 500; 
+            transition: color 0.2s; 
+        }
+        .nav-item:hover { color: #0284c7; }
+
+        /* THÔNG TIN USER & LOGOUT */
+        .user-section { display: flex; align-items: center; gap: 15px; }
+        .user-info { 
+            background-color: #f1f5f9; 
+            padding: 6px 14px; 
+            border-radius: 20px; 
+            font-size: 14px; 
+            color: #334155; 
+            border: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-logout { 
+            background: none; 
+            border: none; 
+            color: #ef4444; /* Đỏ cảnh báo */
+            cursor: pointer; 
+            font-weight: bold; 
+            font-family: inherit; 
+            font-size: 14px; 
+            transition: color 0.2s;
+        }
+        .btn-logout:hover { color: #dc2626; }
+
+        /* KHU VỰC CHỨA NỘI DUNG CHỨC NĂNG TRANG CON */
+        .main-container { 
+            max-width: 1200px; 
+            margin: 35px auto; 
+            padding: 0 20px; 
+            min-height: calc(100vh - 180px); 
+            box-sizing: border-box;
+        }
+
+        /* FOOTER */
+        .footer { 
+            background-color: #ffffff; 
+            color: #64748b; 
+            text-align: center; 
+            padding: 20px 0; 
+            font-size: 14px; 
+            border-top: 1px solid #e2e8f0; 
+        }
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        
+        <!-- NAVBAR CHUNG -->
+        <header class="navbar">
+            <!-- Logo platform -->
+            <a href="DanhSachSanPham.aspx" class="nav-logo">
+                <i class="fa-solid fa-dumbbell"></i> SportShop
+            </a>
+            
+            <!-- Menu điều hướng của khách hàng -->
+            <nav class="nav-menu">
+                <!-- Thêm id và runat="server" cùng đường dẫn tuyệt đối từ gốc ~/ GUI/Customer/ -->
+                <a id="lnkHome" runat="server" href="~/GUI/Customer/DanhSachSanPham.aspx" class="nav-item">
+                    <i class="fa-solid fa-house"></i> Trang chủ
+                </a>
+                <a id="lnkCart" runat="server" href="~/GUI/Customer/XemGioHang.aspx" class="nav-item">
+                    <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
+                </a>
+                <a id="lnkOrders" runat="server" href="~/GUI/Customer/LichSuDonHang.aspx" class="nav-item">
+                    <i class="fa-solid fa-clock-history"></i> Đơn hàng
+                </a>
+                <a id="lnkProfile" runat="server" href="~/GUI/Customer/ThongTinCaNhan.aspx" class="nav-item">
+                    <i class="fa-solid fa-user-gear"></i> Tài khoản
+                </a>
+    
+                <div class="user-section">
+                    <!-- Tên User -->
+                    <span class="user-info">
+                        <i class="fa-solid fa-circle-user"></i> Xin chào, 
+                        <asp:Label ID="lblUsername" runat="server" Text="Khách"></asp:Label>
+                    </span>
+
+                    <!-- Nút Đăng xuất -->
+                    <asp:Button ID="btnLogout" runat="server" Text="Đăng xuất" OnClick="btnLogout_Click" CssClass="btn-logout" OnClientClick="return confirm('Bạn có chắc muốn đăng xuất?')" />
+                </div>
+            </nav>
+        </header>
+
+        <!-- KHU VỰC RENDER TRANG CON (.ASPX) -->
+        <main class="main-container">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
+
+        <!-- FOOTER CHUNG -->
+        <footer class="footer">
+            <p>&copy; 2026 - Dự án Quản Lý Cửa Hàng Thể Thao SportShop. All Rights Reserved.</p>
+        </footer>
+
+    </form>
+</body>
+</html>

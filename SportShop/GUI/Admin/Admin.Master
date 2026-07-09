@@ -1,0 +1,111 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="SportShop.GUI.Admin.AdminMaster" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>SportShop Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f8fafc; color: #1e293b; display: flex; min-height: 100vh; }
+        
+        /* SIDEBAR BÊN TRÁI ĐIỀU HƯỚNG */
+        .sidebar { width: 260px; background-color: #ffffff; border-right: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between; position: fixed; top: 0; bottom: 0; left: 0; padding: 20px 0; box-shadow: 2px 0 5px rgba(0,0,0,0.02); }
+        .sidebar-brand { font-size: 22px; font-weight: bold; color: #0284c7; padding: 0 25px 20px 25px; border-bottom: 1px solid #f1f5f9; display: flex; align-items: center; gap: 10px; }
+        
+        .sidebar-menu { display: flex; flex-direction: column; gap: 5px; padding: 20px 10px; flex-grow: 1; }
+        .menu-item { display: flex; align-items: center; gap: 12px; padding: 12px 15px; color: #475569; text-decoration: none; font-weight: 500; border-radius: 8px; transition: all 0.2s; }
+        .menu-item:hover { background-color: #f1f5f9; color: #0284c7; }
+        
+        /* PHẦN DƯỚI CÙNG: USER INFO & LOGOUT */
+        .sidebar-footer { padding: 20px 15px; border-top: 1px solid #f1f5f9; background-color: #f8fafc; margin: 0 10px; border-radius: 8px; }
+        .user-greet { font-size: 13px; color: #64748b; margin: 0 0 4px 0; }
+        .user-name { font-size: 15px; font-weight: bold; color: #1e293b; margin: 0 0 10px 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .btn-logout { width: 100%; text-align: left; background: none; border: none; color: #ef4444; font-weight: bold; font-family: inherit; cursor: pointer; padding: 5px 0; font-size: 14px; display: flex; align-items: center; gap: 8px; }
+        .btn-logout:hover { color: #dc2626; }
+
+        /* NÂNG CẤP SIDEBAR FOOTER ADMIN */
+        .sidebar-footer { 
+            padding: 20px 15px; 
+            border-top: 1px solid #e2e8f0; 
+            background-color: #f8fafc; 
+            margin: 0 10px; 
+            border-radius: 12px; 
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .user-info-box { display: flex; align-items: center; gap: 12px; }
+        .user-avatar-icon { font-size: 32px; color: #0284c7; } /* Màu xanh dương đặc trưng của Admin */
+        .user-meta { display: flex; flex-direction: column; min-width: 0; }
+        .user-greet { font-size: 12px; color: #64748b; margin: 0; font-weight: 500; }
+        .user-name { font-size: 14px; font-weight: bold; color: #1e293b; margin: 2px 0 0 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+        .btn-logout-new { 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background-color: #fff;
+            border: 1px solid #fee2e2;
+            color: #ef4444;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+            cursor: pointer;
+        }
+        .btn-logout-new:hover { 
+            background-color: #fef2f2;
+            border-color: #fca5a5;
+            color: #dc2626;
+        }
+        /* NƠI RENDER NỘI DUNG CHỨC NĂNG BÊN PHẢI */
+        .main-content { margin-left: 260px; flex-grow: 1; padding: 40px; box-sizing: border-box; background-color: #f8fafc; }
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        
+        <!-- SIDEBAR BÊN TRÁI -->
+        <aside class="sidebar">
+            <div>
+                <div class="sidebar-brand">
+                    <i class="fa-solid fa-user-shield"></i> Admin Panel
+                </div>
+                <div class="sidebar-menu">
+                    <a id="lnkDashboard" runat="server" href="~/GUI/Admin/Dashboard.aspx" class="menu-item"><i class="fa-solid fa-chart-pie fa-fw"></i> Tổng quan hệ thống</a>
+                    <a id="lnkCuaHang" runat="server" href="~/GUI/Admin/QuanLyCuaHang.aspx" class="menu-item"><i class="fa-solid fa-store fa-fw"></i> Quản lý cửa hàng</a>
+                    <a id="lnkKhachHang" runat="server" href="~/GUI/Admin/QuanLyKhachHang.aspx" class="menu-item"><i class="fa-solid fa-users fa-fw"></i> Quản lý khách hàng</a>
+                    <a id="lnkTickets" runat="server" href="~/GUI/Admin/QuanLyTickets.aspx" class="menu-item"><i class="fa-solid fa-ticket fa-fw"></i> Quản lý sự cố (Tickets)</a>
+                </div>
+            </div>
+
+   
+            <!-- PHẦN THÔNG TIN USER VÀ ĐĂNG XUẤT MỚI -->
+            <div class="sidebar-footer">
+                <div class="user-info-box">
+                    <i class="fa-solid fa-user-shield user-avatar-icon"></i>
+                    <div class="user-meta">
+                        <p class="user-greet">Quản trị viên</p>
+                        <p class="user-name"><asp:Label ID="lblAdminName" runat="server" Text="Người quản trị"></asp:Label></p>
+                    </div>
+                </div>
+                <asp:LinkButton ID="btnLogoutNew" runat="server" OnClick="btnLogout_Click" CssClass="btn-logout-new" OnClientClick="return confirm('Bạn có chắc muốn đăng xuất hệ thống?')">
+                    <i class="fa-solid fa-right-from-bracket"></i> Đăng xuất
+                </asp:LinkButton>
+            </div>
+        </aside>
+
+        <!-- NƠI RENDER CÁC TRANG CON -->
+        <main class="main-content">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
+
+    </form>
+</body>
+</html>
