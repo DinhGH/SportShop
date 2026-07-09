@@ -68,6 +68,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="App_Data\Database1.mdf" />
+    <Content Include="App_Data\Database1_log.ldf">
+      <DependentUpon>Database1.mdf</DependentUpon>
+    </Content>
     <Content Include="App_Data\SportShopDB.mdf" />
     <Content Include="App_Data\SportShopDB_log.ldf">
       <DependentUpon>SportShopDB.mdf</DependentUpon>

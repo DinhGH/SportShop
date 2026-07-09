@@ -9,7 +9,7 @@ namespace SportShop
 {
     public class ConnectionProvider
     {
-        private SqlConnection conn;
+        public SqlConnection conn { get; set; }
 
         // Hàm mở kết nối
         public void moketnoi()
