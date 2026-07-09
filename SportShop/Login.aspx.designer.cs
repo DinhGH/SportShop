@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace BaiTapDataBase {
+namespace SportShop {
     
     
     public partial class Login {

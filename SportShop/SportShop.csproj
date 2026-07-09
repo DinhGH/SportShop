@@ -85,16 +85,16 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
-    <Content Include="App_Code\CategoryDAL.cs" />
-    <Content Include="App_Code\CartDAL.cs" />
+    <Compile Include="App_Code\CategoryDAL.cs" />
+    <Compile Include="App_Code\CartDAL.cs" />
     <Compile Include="App_Code\ConnectionProvider.cs" />
-    <Content Include="App_Code\UserDAL.cs" />
-    <Content Include="App_Code\RoleDAL.cs" />
-    <Content Include="App_Code\StoreDAL.cs" />
-    <Content Include="App_Code\OrderDetailDAL.cs" />
-    <Content Include="App_Code\OrderDAL.cs" />
-    <Content Include="App_Code\ProductDAL.cs" />
-    <Content Include="App_Code\TicketDAL.cs" />
+    <Compile Include="App_Code\UserDAL.cs" />
+    <Compile Include="App_Code\RoleDAL.cs" />
+    <Compile Include="App_Code\StoreDAL.cs" />
+    <Compile Include="App_Code\OrderDetailDAL.cs" />
+    <Compile Include="App_Code\OrderDAL.cs" />
+    <Compile Include="App_Code\ProductDAL.cs" />
+    <Compile Include="App_Code\TicketDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
