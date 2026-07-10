@@ -1,4 +1,4 @@
-<%@ Page Title="Dashboard Cửa Hàng" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+<%@ Page Title="Dashboard Cửa Hàng" Language="C#" MasterPageFile="~/GUI/Owner/Owner.Master" AutoEventWireup="true"
     CodeBehind="Dashboard.aspx.cs" Inherits="SportShop.GUI.Owner.Dashboard" %>
 
     <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -240,7 +240,7 @@
         </style>
     </asp:Content>
 
-    <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <div class="dashboard-container container">
             <h1 style="margin-bottom: 30px; color: #333;">📊 Dashboard Cửa Hàng</h1>
 

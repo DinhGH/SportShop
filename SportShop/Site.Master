@@ -5,71 +5,21 @@
 <head runat="server">
     <meta charset="utf-8" />
     <title>SportShop - Hệ Thống Cửa Hàng Thể Thao</title>
-    <!-- Nhúng Google Fonts & FontAwesome để làm icon cho đẹp -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             margin: 0; 
             padding: 0; 
-            background-color: #f8fafc; /* Nền xám sáng */
-            color: #1e293b; /* Chữ đen/tối */
-        }
-
-        /* NAVBAR */
-        .navbar { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            background-color: #ffffff; /* Nền navbar trắng */
+            background-color: #f8fafc; 
             color: #1e293b; 
-            padding: 15px 30px; 
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-            border-bottom: 1px solid #e2e8f0;
         }
-        .nav-logo { 
-            font-size: 24px; 
-            font-weight: bold; 
-            color: #0284c7; /* Điểm nhấn màu xanh dương cho logo */
-            text-decoration: none; 
-        }
-        .nav-menu { display: flex; gap: 20px; align-items: center; }
-        .nav-item { 
-            color: #475569; /* Chữ xám tối */
-            text-decoration: none; 
-            font-weight: 500; 
-            transition: color 0.3s; 
-        }
-        .nav-item:hover { color: #0284c7; }
-
-        .user-info { 
-            background-color: #f1f5f9; /* Khung xám nhạt */
-            padding: 6px 12px; 
-            border-radius: 20px; 
-            font-size: 14px; 
-            color: #334155; 
-            border: 1px solid #e2e8f0;
-        }
-        .btn-logout { 
-            background: none; 
-            border: none; 
-            color: #ef4444; /* Màu đỏ cho nút đăng xuất */
-            cursor: pointer; 
-            font-weight: bold; 
-            font-family: inherit; 
-            font-size: 14px; 
-        }
-        .btn-logout:hover { color: #dc2626; }
-
-        /* MAIN CONTENT */
         .main-container { 
             max-width: 1200px; 
             margin: 30px auto; 
             padding: 0 20px; 
             min-height: calc(100vh - 180px); 
         }
-
-        /* FOOTER */
         .footer { 
             background-color: #ffffff; 
             color: #64748b; 
@@ -78,7 +28,7 @@
             font-size: 14px; 
             border-top: 1px solid #e2e8f0; 
         }
-        </style>
+    </style>
     <script>
         function handleImageError(img) {
             img.onerror = null;
@@ -91,43 +41,11 @@
     <form id="form1" runat="server">
         <asp:ScriptManager ID="ScriptManager1" runat="server" />
         
-        <!-- NAVBAR CHUNG -->
-        <header class="navbar">
-            <!-- Tên nền tảng -->
-            <a href="~/Login.aspx" runat="server" class="nav-logo">
-                <i class="fa-solid fa-dumbbell"></i> SportShop
-            </a>
-            
-            <!-- Cụm Menu chức năng dựa trên Session -->
-            <nav class="nav-menu">
-                <asp:HyperLink ID="lnkProducts" runat="server" NavigateUrl="~/GUI/Owner/ProductManagement.aspx" CssClass="nav-item"><i class="fa-solid fa-box-open"></i> Sản phẩm</asp:HyperLink>
-                <asp:HyperLink ID="lnkDashboard" runat="server" NavigateUrl="~/GUI/Owner/Dashboard.aspx" CssClass="nav-item"><i class="fa-solid fa-chart-line"></i> Dashboard</asp:HyperLink>
-                <asp:HyperLink ID="lnkOrders" runat="server" NavigateUrl="~/GUI/Owner/OrderManagement.aspx" CssClass="nav-item"><i class="fa-solid fa-clipboard-list"></i> Đơn hàng</asp:HyperLink>
-                
-                <!-- Nút Cửa hàng -->
-                <asp:HyperLink ID="lnkStore" runat="server" NavigateUrl="~/GUI/Owner/StoreInfo.aspx" CssClass="nav-item">
-                    <i class="fa-solid fa-store"></i> Cửa hàng
-                </asp:HyperLink>
-
-                <!-- Thông tin User -->
-                <span class="user-info">
-                    <i class="fa-solid fa-user"></i> Xin chào, 
-                    <asp:Label ID="lblUsername" runat="server" Text="Khách"></asp:Label>
-                </span>
-
-                <!-- Nút Đăng xuất -->
-                <asp:Button ID="btnLogout" runat="server" Text="Đăng xuất" OnClick="btnLogout_Click" CssClass="btn-logout" OnClientClick="return confirm('Bạn có chắc muốn đăng xuất?')" />
-            </nav>
-        </header>
-
-        <!-- KHU VỰC RENDER CÁC TRANG CON -->
         <main class="main-container">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
-                <!-- Nội dung các trang con (.aspx) sẽ tự động chèn vào đây -->
             </asp:ContentPlaceHolder>
         </main>
 
-        <!-- FOOTER CHUNG -->
         <footer class="footer">
             <p>&copy; 2026 - Dự án Quản Lý Cửa Hàng Thể Thao SportShop. All Rights Reserved.</p>
         </footer>

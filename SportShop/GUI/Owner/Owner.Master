@@ -1,0 +1,98 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Owner.Master.cs" Inherits="SportShop.GUI.Owner.Site1" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>SportShop - Quản Lý</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            margin: 0; 
+            padding: 0; 
+            background-color: #f8fafc; 
+            color: #1e293b; 
+        }
+        .navbar { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            background-color: #ffffff; 
+            color: #1e293b; 
+            padding: 15px 30px; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .nav-logo { 
+            font-size: 24px; 
+            font-weight: bold; 
+            color: #0284c7; 
+            text-decoration: none; 
+        }
+        .nav-menu { display: flex; gap: 20px; align-items: center; }
+        .nav-item { 
+            color: #475569; 
+            text-decoration: none; 
+            font-weight: 500; 
+            transition: color 0.3s; 
+        }
+        .nav-item:hover { color: #0284c7; }
+        .user-info { 
+            background-color: #f1f5f9; 
+            padding: 6px 12px; 
+            border-radius: 20px; 
+            font-size: 14px; 
+            color: #334155; 
+            border: 1px solid #e2e8f0;
+        }
+        .btn-logout { 
+            background: none; 
+            border: none; 
+            color: #ef4444; 
+            cursor: pointer; 
+            font-weight: bold; 
+            font-family: inherit; 
+            font-size: 14px; 
+        }
+        .btn-logout:hover { color: #dc2626; }
+        .main-container { 
+            max-width: 1200px; 
+            margin: 30px auto; 
+            padding: 0 20px; 
+            min-height: calc(100vh - 180px); 
+        }
+    </style>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <asp:ScriptManager ID="ScriptManager1" runat="server" />
+        <header class="navbar">
+            <a href="~/Login.aspx" runat="server" class="nav-logo">
+                <i class="fa-solid fa-dumbbell"></i> SportShop Owner
+            </a>
+            <nav class="nav-menu">
+                <asp:HyperLink ID="lnkProducts" runat="server" NavigateUrl="~/GUI/Owner/ProductManagement.aspx" CssClass="nav-item"><i class="fa-solid fa-box-open"></i> Sản phẩm</asp:HyperLink>
+                <asp:HyperLink ID="lnkDashboard" runat="server" NavigateUrl="~/GUI/Owner/Dashboard.aspx" CssClass="nav-item"><i class="fa-solid fa-chart-line"></i> Dashboard</asp:HyperLink>
+                <asp:HyperLink ID="lnkOrders" runat="server" NavigateUrl="~/GUI/Owner/OrderManagement.aspx" CssClass="nav-item"><i class="fa-solid fa-clipboard-list"></i> Đơn hàng</asp:HyperLink>
+                <asp:HyperLink ID="lnkStore" runat="server" NavigateUrl="~/GUI/Owner/StoreInfo.aspx" CssClass="nav-item">
+                    <i class="fa-solid fa-store"></i> Cửa hàng
+                </asp:HyperLink>
+                <asp:HyperLink ID="lnkReport" runat="server" NavigateUrl="~/GUI/Owner/ReportIssue.aspx" CssClass="nav-item">
+                    <i class="fa-solid fa-flag"></i> Báo cáo
+                </asp:HyperLink>
+                <span class="user-info">
+                    <i class="fa-solid fa-user"></i> Xin chào, 
+                    <asp:Label ID="lblUsername" runat="server" Text="Khách"></asp:Label>
+                </span>
+                <asp:Button ID="btnLogout" runat="server" Text="Đăng xuất" OnClick="btnLogout_Click" CssClass="btn-logout" OnClientClick="return confirm('Bạn có chắc muốn đăng xuất?')" />
+            </nav>
+        </header>
+        <main class="main-container">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
+    </form>
+</body>
+</html>

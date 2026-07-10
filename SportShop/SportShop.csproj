@@ -67,45 +67,59 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-  <Content Include="GUI\Owner\Dashboard.aspx" />
-  <Compile Include="GUI\Owner\Dashboard.aspx.cs">
-    <DependentUpon>Dashboard.aspx</DependentUpon>
-    <SubType>ASPXCodeBehind</SubType>
-  </Compile>
-  <Compile Include="GUI\Owner\Dashboard.aspx.designer.cs">
-    <DependentUpon>Dashboard.aspx</DependentUpon>
-  </Compile>
-  <Content Include="GUI\Owner\ProductManagement.aspx" />
-  <Compile Include="GUI\Owner\ProductManagement.aspx.cs">
-    <DependentUpon>ProductManagement.aspx</DependentUpon>
-    <SubType>ASPXCodeBehind</SubType>
-  </Compile>
-  <Compile Include="GUI\Owner\ProductManagement.aspx.designer.cs">
-    <DependentUpon>ProductManagement.aspx</DependentUpon>
-  </Compile>
-  <Content Include="GUI\Owner\StoreInfo.aspx" />
-  <Compile Include="GUI\Owner\StoreInfo.aspx.cs">
-    <DependentUpon>StoreInfo.aspx</DependentUpon>
-    <SubType>ASPXCodeBehind</SubType>
-  </Compile>
-  <Compile Include="GUI\Owner\StoreInfo.aspx.designer.cs">
-    <DependentUpon>StoreInfo.aspx</DependentUpon>
-  </Compile>
-  <Content Include="GUI\Owner\OrderManagement.aspx" />
-  <Compile Include="GUI\Owner\OrderManagement.aspx.cs">
-    <DependentUpon>OrderManagement.aspx</DependentUpon>
-    <SubType>ASPXCodeBehind</SubType>
-  </Compile>
-  <Compile Include="GUI\Owner\OrderManagement.aspx.designer.cs">
-    <DependentUpon>OrderManagement.aspx</DependentUpon>
-  </Compile>
-</ItemGroup>
-  <ItemGroup>
-    <Content Include=".gitignore" />
     <Content Include="App_Data\Database1.mdf" />
     <Content Include="App_Data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
+    <Content Include="GUI\Owner\Dashboard.aspx" />
+    <Compile Include="GUI\Owner\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Content Include="GUI\Owner\ProductManagement.aspx" />
+    <Compile Include="GUI\Owner\ProductManagement.aspx.cs">
+      <DependentUpon>ProductManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\ProductManagement.aspx.designer.cs">
+      <DependentUpon>ProductManagement.aspx</DependentUpon>
+    </Compile>
+    <Content Include="GUI\Owner\StoreInfo.aspx" />
+    <Compile Include="GUI\Owner\Owner.Master.cs">
+      <DependentUpon>Owner.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\Owner.Master.designer.cs">
+      <DependentUpon>Owner.Master</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\StoreInfo.aspx.cs">
+      <DependentUpon>StoreInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\StoreInfo.aspx.designer.cs">
+      <DependentUpon>StoreInfo.aspx</DependentUpon>
+    </Compile>
+    <Content Include="GUI\Owner\OrderManagement.aspx" />
+    <Compile Include="GUI\Owner\OrderManagement.aspx.cs">
+      <DependentUpon>OrderManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\OrderManagement.aspx.designer.cs">
+      <DependentUpon>OrderManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\ReportIssue.aspx.cs">
+  <DependentUpon>ReportIssue.aspx</DependentUpon>
+</Compile>
+<Compile Include="GUI\Owner\ReportIssue.aspx.designer.cs">
+  <DependentUpon>ReportIssue.aspx</DependentUpon>
+</Compile>
+<Content Include="GUI\Owner\ReportIssue.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="App_Data\SportShopDB.mdf" />
     <Content Include="App_Data\SportShopDB_log.ldf">
       <DependentUpon>SportShopDB.mdf</DependentUpon>
@@ -154,6 +168,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GUI\Owner\Owner.Master" />
     <None Include="packages.config" />
     <Content Include="Site.Master" />
     <None Include="Web.Debug.config">
@@ -169,7 +184,6 @@
     <Folder Include="Assets\js\" />
     <Folder Include="GUI\Admin\" />
     <Folder Include="GUI\Customer\" />
-    <Folder Include="GUI\Owner\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>

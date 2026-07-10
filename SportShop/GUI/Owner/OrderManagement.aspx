@@ -1,4 +1,4 @@
-<%@ Page Title="Quản lý Đơn hàng" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
+<%@ Page Title="Quản lý Đơn hàng" Language="C#" MasterPageFile="~/GUI/Owner/Owner.Master" AutoEventWireup="true"
     CodeBehind="OrderManagement.aspx.cs" Inherits="SportShop.GUI.Owner.OrderManagement" %>
 
     <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -40,7 +40,7 @@
         </style>
     </asp:Content>
 
-    <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <div class="order-container">
             <h1 class="section-title">📦 Quản lý Đơn hàng</h1>
             <div class="grid-container">

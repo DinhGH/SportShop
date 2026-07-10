@@ -1,5 +1,5 @@
-<%@ Page Title="Quản Lý Sản Phẩm & Danh Mục" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
-    CodeBehind="ProductManagement.aspx.cs" Inherits="SportShop.GUI.Owner.ProductManagement" %>
+<%@ Page Title="Quản Lý Sản Phẩm & Danh Mục" Language="C#" MasterPageFile="~/GUI/Owner/Owner.Master"
+    AutoEventWireup="true" CodeBehind="ProductManagement.aspx.cs" Inherits="SportShop.GUI.Owner.ProductManagement" %>
 
     <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
         <style>
@@ -381,7 +381,7 @@
         </style>
     </asp:Content>
 
-    <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <div class="product-management-container container">
             <div class="page-header">
                 <div class="page-title-group">

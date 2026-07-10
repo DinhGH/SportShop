@@ -1,5 +1,5 @@
-<%@ Page Title="Quản Lý Thông Tin Cửa Hàng" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true"
-    CodeBehind="StoreInfo.aspx.cs" Inherits="SportShop.GUI.Owner.StoreInfo" %>
+<%@ Page Title="Quản Lý Thông Tin Cửa Hàng" Language="C#" MasterPageFile="~/GUI/Owner/Owner.Master"
+    AutoEventWireup="true" CodeBehind="StoreInfo.aspx.cs" Inherits="SportShop.GUI.Owner.StoreInfo" %>
 
     <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
         <style>
@@ -240,7 +240,7 @@
         </style>
     </asp:Content>
 
-    <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         <div class="store-info-container container">
             <div class="page-header">
                 <h1 class="page-title">⚙️ Quản Lý Thông Tin Cửa Hàng</h1>
