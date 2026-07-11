@@ -78,6 +78,7 @@
     <Content Include="GUI\Admin\QuanLyKhachHang.aspx" />
     <Content Include="GUI\Admin\QuanLyTickets.aspx" />
     <Content Include="GUI\Customer\DanhSachSanPham.aspx" />
+    <Content Include="GUI\Customer\XemGioHang.aspx" />
     <Content Include="GUI\Customer\ThongTinCaNhan.aspx" />
     <Content Include="GUI\Owner\DashboardOwner.aspx" />
     <Content Include="Login.aspx" />
@@ -133,6 +134,13 @@
     </Compile>
     <Compile Include="GUI\Customer\DanhSachSanPham.aspx.designer.cs">
       <DependentUpon>DanhSachSanPham.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Customer\XemGioHang.aspx.cs">
+      <DependentUpon>XemGioHang.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Customer\XemGioHang.aspx.designer.cs">
+      <DependentUpon>XemGioHang.aspx</DependentUpon>
     </Compile>
     <Compile Include="GUI\Customer\ThongTinCaNhan.aspx.cs">
       <DependentUpon>ThongTinCaNhan.aspx</DependentUpon>

@@ -66,7 +66,7 @@
         <i class="fa-solid fa-ranking-star" style="color: #f59e0b;"></i> Top Sản Phẩm Bán Chạy Nhất
     </div>
 
-    <asp:GridView ID="gvTopProducts" runat="server" AutoGenerateColumns="False" CssClass="grid-view">
+    <asp:GridView ID="gvTopProducts" runat="server" AutoGenerateColumns="False" CssClass="grid-view" OnSelectedIndexChanged="gvTopProducts_SelectedIndexChanged">
         <Columns>
             <asp:BoundField DataField="ProductID" HeaderText="Mã SP" ItemStyle-Width="80px" />
             <asp:BoundField DataField="ProductName" HeaderText="Tên Sản Phẩm" />

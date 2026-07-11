@@ -101,7 +101,7 @@
             
             <!-- Menu điều hướng của khách hàng -->
             <nav class="nav-menu">
-                <!-- Thêm id và runat="server" cùng đường dẫn tuyệt đối từ gốc ~/ GUI/Customer/ -->
+                <!-- Thêm id và cùng đường dẫn tuyệt đối từ gốc ~/ GUI/Customer/ -->
                 <a id="lnkHome" runat="server" href="~/GUI/Customer/DanhSachSanPham.aspx" class="nav-item">
                     <i class="fa-solid fa-house"></i> Trang chủ
                 </a>

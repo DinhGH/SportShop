@@ -134,5 +134,10 @@ namespace SportShop.GUI.Owner
             catch (Exception) { }
             finally { db.dongketnoi(); }
         }
+
+        protected void gvTopProducts_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
