@@ -11,8 +11,10 @@
             }
 
             .product-management-container {
-                padding: 40px 0;
+                padding: 40px 20px;
                 background-color: #F8FAFC;
+                max-width: 1200px;
+                margin: 0 auto;
             }
 
             .page-header {

@@ -7,11 +7,13 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace SportShop.GUI.Owner {
-    
-    
-    public partial class StoreInfo {
-        
+namespace SportShop.GUI.Owner
+{
+
+
+    public partial class StoreInfo
+    {
+
         /// <summary>
         /// pnlSuccess control.
         /// </summary>
@@ -20,7 +22,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlSuccess;
-        
+
         /// <summary>
         /// lblSuccess control.
         /// </summary>
@@ -29,7 +31,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblSuccess;
-        
+
         /// <summary>
         /// pnlError control.
         /// </summary>
@@ -38,7 +40,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlError;
-        
+
         /// <summary>
         /// lblError control.
         /// </summary>
@@ -47,7 +49,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblError;
-        
+
         /// <summary>
         /// pnlInfo control.
         /// </summary>
@@ -56,7 +58,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Panel pnlInfo;
-        
+
         /// <summary>
         /// lblInfo control.
         /// </summary>
@@ -65,7 +67,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblInfo;
-        
+
         /// <summary>
         /// txtStoreName control.
         /// </summary>
@@ -74,7 +76,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtStoreName;
-        
+
         /// <summary>
         /// rfvStoreName control.
         /// </summary>
@@ -83,7 +85,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvStoreName;
-        
+
         /// <summary>
         /// txtStoreAddress control.
         /// </summary>
@@ -92,7 +94,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtStoreAddress;
-        
+
         /// <summary>
         /// rfvStoreAddress control.
         /// </summary>
@@ -101,7 +103,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvStoreAddress;
-        
+
         /// <summary>
         /// txtStorePhone control.
         /// </summary>
@@ -110,7 +112,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtStorePhone;
-        
+
         /// <summary>
         /// rfvStorePhone control.
         /// </summary>
@@ -119,7 +121,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator rfvStorePhone;
-        
+
         /// <summary>
         /// revStorePhone control.
         /// </summary>
@@ -128,7 +130,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RegularExpressionValidator revStorePhone;
-        
+
         /// <summary>
         /// fuLogo control.
         /// </summary>
@@ -137,7 +139,16 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload fuLogo;
-        
+
+        /// <summary>
+        /// imgLogo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgLogo;
+
         /// <summary>
         /// lblCurrentLogo control.
         /// </summary>
@@ -146,7 +157,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblCurrentLogo;
-        
+
         /// <summary>
         /// txtLogoUrl control.
         /// </summary>
@@ -155,7 +166,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtLogoUrl;
-        
+
         /// <summary>
         /// btnSave control.
         /// </summary>
@@ -164,7 +175,7 @@ namespace SportShop.GUI.Owner {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnSave;
-        
+
         /// <summary>
         /// btnCancel control.
         /// </summary>

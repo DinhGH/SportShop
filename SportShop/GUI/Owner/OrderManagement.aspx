@@ -6,6 +6,8 @@
             .order-container {
                 padding: 20px;
                 background: #F8FAFC;
+                max-width: 1200px;
+                margin: 0 auto;
             }
 
             .section-title {

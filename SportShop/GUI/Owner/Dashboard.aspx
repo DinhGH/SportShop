@@ -11,8 +11,10 @@
             }
 
             .dashboard-container {
-                padding: 20px 0;
+                padding: 20px;
                 background-color: #F8FAFC;
+                max-width: 1200px;
+                margin: 0 auto;
             }
 
             h1 {
@@ -193,7 +195,7 @@
             /* Stats Grid */
             .stats-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                grid-template-columns: repeat(4, 1fr);
                 gap: 24px;
                 margin-bottom: 40px;
             }

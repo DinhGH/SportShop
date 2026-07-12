@@ -75,6 +75,9 @@
                     <i class="fa-solid fa-shop"></i> Kênh Chủ Shop
                 </div>
                 <div class="sidebar-menu">
+                <a id="lnkOwnerStoreInfo" runat="server" href="~/GUI/Owner/StoreInfo.aspx" class="menu-item">
+                        <i class="fa-solid fa-store fa-fw"></i> Quản lý cửa hàng
+                    </a>
                     <a id="lnkOwnerDashboard" runat="server" href="~/GUI/Owner/Dashboard.aspx" class="menu-item">
                         <i class="fa-solid fa-chart-line fa-fw"></i> Báo cáo doanh thu
                     </a>
@@ -83,6 +86,9 @@
                     </a>
                     <a id="lnkOwnerOrders" runat="server" href="~/GUI/Owner/OrderManagement.aspx" class="menu-item">
                         <i class="fa-solid fa-file-invoice-dollar fa-fw"></i> Quản lý đơn hàng
+                    </a>
+                    <a id="lnkOwnerReportIssue" runat="server" href="~/GUI/Owner/ReportIssue.aspx" class="menu-item">
+                        <i class="fa-solid fa-circle-exclamation fa-fw"></i> Báo cáo sự cố
                     </a>
                 </div>
             </div>

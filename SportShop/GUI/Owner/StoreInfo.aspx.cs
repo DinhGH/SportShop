@@ -50,10 +50,12 @@ namespace SportShop.GUI.Owner
                 {
                     string logoUrl = row["Logo"].ToString();
                     txtLogoUrl.Text = logoUrl;
-                    lblCurrentLogo.Text = $"📷 Logo hiện tại: <a href='{logoUrl}' target='_blank'>Xem ảnh</a>";
+                    imgLogo.ImageUrl = logoUrl;
+                    lblCurrentLogo.Text = "Logo hiện tại:";
                 }
                 else
                 {
+                    imgLogo.Visible = false;
                     lblCurrentLogo.Text = "Chưa có logo";
                 }
             }
@@ -156,26 +158,28 @@ namespace SportShop.GUI.Owner
 
         private void DisplayMessage(string message, MessageType type)
         {
+            if (pnlSuccess == null || pnlError == null || pnlInfo == null) return;
+
             if (type == MessageType.Success)
             {
                 pnlSuccess.Visible = true;
                 pnlError.Visible = false;
                 pnlInfo.Visible = false;
-                lblSuccess.Text = message;
+                if (lblSuccess != null) lblSuccess.Text = message;
             }
             else if (type == MessageType.Error)
             {
                 pnlSuccess.Visible = false;
                 pnlError.Visible = true;
                 pnlInfo.Visible = false;
-                lblError.Text = message;
+                if (lblError != null) lblError.Text = message;
             }
             else if (type == MessageType.Info)
             {
                 pnlSuccess.Visible = false;
                 pnlError.Visible = false;
                 pnlInfo.Visible = true;
-                lblInfo.Text = message;
+                if (lblInfo != null) lblInfo.Text = message;
             }
         }
 
