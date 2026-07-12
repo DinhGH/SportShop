@@ -75,13 +75,13 @@
                     <i class="fa-solid fa-shop"></i> Kênh Chủ Shop
                 </div>
                 <div class="sidebar-menu">
-                    <a id="lnkOwnerDashboard" runat="server" href="~/GUI/Owner/DashboardOwner.aspx" class="menu-item">
+                    <a id="lnkOwnerDashboard" runat="server" href="~/GUI/Owner/Dashboard.aspx" class="menu-item">
                         <i class="fa-solid fa-chart-line fa-fw"></i> Báo cáo doanh thu
                     </a>
-                    <a id="lnkOwnerProducts" runat="server" href="~/GUI/Owner/QuanLySanPham.aspx" class="menu-item">
+                    <a id="lnkOwnerProducts" runat="server" href="~/GUI/Owner/ProductManagement.aspx" class="menu-item">
                         <i class="fa-solid fa-boxes-stacked fa-fw"></i> Quản lý sản phẩm shop
                     </a>
-                    <a id="lnkOwnerOrders" runat="server" href="~/GUI/Owner/QuanLyDonHang.aspx" class="menu-item">
+                    <a id="lnkOwnerOrders" runat="server" href="~/GUI/Owner/OrderManagement.aspx" class="menu-item">
                         <i class="fa-solid fa-file-invoice-dollar fa-fw"></i> Quản lý đơn hàng
                     </a>
                 </div>
@@ -105,7 +105,7 @@
 
         <!-- NƠI RENDER CÁC TRANG CON -->
         <main class="main-content">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
             </asp:ContentPlaceHolder>
         </main>
 

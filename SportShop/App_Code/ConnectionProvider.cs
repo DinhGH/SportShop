@@ -15,7 +15,7 @@ namespace SportShop
         public void moketnoi()
         {
             string chuoiketnoi = HttpContext.Current.Server.MapPath("~/App_Data/SportShopDB.mdf");
-            string con = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={chuoiketnoi};Integrated Security=True";
+            string con = string.Format(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={0};Integrated Security=True", chuoiketnoi);
             conn = new SqlConnection(con);
             conn.Open();
         }

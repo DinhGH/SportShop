@@ -28,7 +28,7 @@ namespace SportShop
                     }
                     else if (roleId == "2") // Trả Owner về trang chủ shop
                     {
-                        Response.Redirect("~/GUI/Owner/DashboardOwner.aspx");
+                        Response.Redirect("~/GUI/Owner/Dashboard.aspx");
                     }
                     else // Khách hàng
                     {
@@ -62,7 +62,7 @@ namespace SportShop
                 }
                 else if (roleId == "2") // Owner
                 {
-                    Response.Redirect("~/GUI/Owner/DashboardOwner.aspx");
+                    Response.Redirect("~/GUI/Owner/Dashboard.aspx");
                 }
                 else // Customer (Mã 3)
                 {

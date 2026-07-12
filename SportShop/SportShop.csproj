@@ -82,7 +82,9 @@
     <Content Include="GUI\Owner\DashboardOwner.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GUI\Admin\Admin.Master.cs">
@@ -141,12 +143,40 @@
     <Compile Include="GUI\Customer\ThongTinCaNhan.aspx.designer.cs">
       <DependentUpon>ThongTinCaNhan.aspx</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Owner\DashboardOwner.aspx.cs">
-      <DependentUpon>DashboardOwner.aspx</DependentUpon>
+    <Compile Include="GUI\Owner\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="GUI\Owner\DashboardOwner.aspx.designer.cs">
-      <DependentUpon>DashboardOwner.aspx</DependentUpon>
+    <Compile Include="GUI\Owner\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\ProductManagement.aspx.cs">
+      <DependentUpon>ProductManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\ProductManagement.aspx.designer.cs">
+      <DependentUpon>ProductManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\ReportIssue.aspx.designer.cs">
+      <DependentUpon>ReportIssue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\ReportIssue.aspx.cs">
+      <DependentUpon>ReportIssue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\StoreInfo.aspx.designer.cs">
+      <DependentUpon>StoreInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\StoreInfo.aspx.cs">
+      <DependentUpon>StoreInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\OrderManagement.aspx.cs">
+      <DependentUpon>OrderManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\OrderManagement.aspx.designer.cs">
+      <DependentUpon>OrderManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="GUI\Owner\Owner.Master.cs">
       <DependentUpon>Owner.Master</DependentUpon>
@@ -165,6 +195,7 @@
     <Compile Include="App_Code\OrderDAL.cs" />
     <Compile Include="App_Code\ProductDAL.cs" />
     <Compile Include="App_Code\TicketDAL.cs" />
+    <Compile Include="App_Code\StatisticsDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
