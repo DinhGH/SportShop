@@ -23,7 +23,6 @@ namespace SportShop.GUI.Owner
         {
             Session.Clear();
             Session.Abandon();
-
             Response.Redirect("~/Login.aspx");
         }
     }

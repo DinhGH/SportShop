@@ -111,12 +111,12 @@
       <DependentUpon>OrderManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="GUI\Owner\ReportIssue.aspx.cs">
-  <DependentUpon>ReportIssue.aspx</DependentUpon>
-</Compile>
-<Compile Include="GUI\Owner\ReportIssue.aspx.designer.cs">
-  <DependentUpon>ReportIssue.aspx</DependentUpon>
-</Compile>
-<Content Include="GUI\Owner\ReportIssue.aspx" />
+      <DependentUpon>ReportIssue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\ReportIssue.aspx.designer.cs">
+      <DependentUpon>ReportIssue.aspx</DependentUpon>
+    </Compile>
+    <Content Include="GUI\Owner\ReportIssue.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
@@ -125,17 +125,114 @@
       <DependentUpon>SportShopDB.mdf</DependentUpon>
     </Content>
     <Content Include="Global.asax" />
+    <Content Include="GUI\Admin\Dashboard.aspx" />
+    <Content Include="GUI\Admin\QuanLyCuaHang.aspx" />
+    <Content Include="GUI\Admin\QuanLyKhachHang.aspx" />
+    <Content Include="GUI\Admin\QuanLyTickets.aspx" />
+    <Content Include="GUI\Customer\DanhSachSanPham.aspx" />
+    <Content Include="GUI\Customer\ThongTinCaNhan.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Site.Master.cs">
-      <DependentUpon>Site.Master</DependentUpon>
+    <Compile Include="GUI\Admin\Admin.Master.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Site.Master.designer.cs">
-      <DependentUpon>Site.Master</DependentUpon>
+    <Compile Include="GUI\Admin\Admin.Master.designer.cs">
+      <DependentUpon>Admin.Master</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Admin\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Admin\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Admin\QuanLyCuaHang.aspx.cs">
+      <DependentUpon>QuanLyCuaHang.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Admin\QuanLyCuaHang.aspx.designer.cs">
+      <DependentUpon>QuanLyCuaHang.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Admin\QuanLyKhachHang.aspx.cs">
+      <DependentUpon>QuanLyKhachHang.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Admin\QuanLyKhachHang.aspx.designer.cs">
+      <DependentUpon>QuanLyKhachHang.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Admin\QuanLyTickets.aspx.cs">
+      <DependentUpon>QuanLyTickets.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Admin\QuanLyTickets.aspx.designer.cs">
+      <DependentUpon>QuanLyTickets.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Customer\Customer.Master.cs">
+      <DependentUpon>Customer.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Customer\Customer.Master.designer.cs">
+      <DependentUpon>Customer.Master</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Customer\DanhSachSanPham.aspx.cs">
+      <DependentUpon>DanhSachSanPham.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Customer\DanhSachSanPham.aspx.designer.cs">
+      <DependentUpon>DanhSachSanPham.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Customer\ThongTinCaNhan.aspx.cs">
+      <DependentUpon>ThongTinCaNhan.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Customer\ThongTinCaNhan.aspx.designer.cs">
+      <DependentUpon>ThongTinCaNhan.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\Dashboard.aspx.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\Dashboard.aspx.designer.cs">
+      <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\OrderManagement.aspx.cs">
+      <DependentUpon>OrderManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\OrderManagement.aspx.designer.cs">
+      <DependentUpon>OrderManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\ProductManagement.aspx.cs">
+      <DependentUpon>ProductManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\ProductManagement.aspx.designer.cs">
+      <DependentUpon>ProductManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\ReportIssue.aspx.cs">
+      <DependentUpon>ReportIssue.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\ReportIssue.aspx.designer.cs">
+      <DependentUpon>ReportIssue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\StoreInfo.aspx.cs">
+      <DependentUpon>StoreInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\StoreInfo.aspx.designer.cs">
+      <DependentUpon>StoreInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\Owner.Master.cs">
+      <DependentUpon>Owner.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Owner\Owner.Master.designer.cs">
+      <DependentUpon>Owner.Master</DependentUpon>
     </Compile>
     <Compile Include="App_Code\CategoryDAL.cs" />
     <Compile Include="App_Code\CartDAL.cs" />
@@ -168,9 +265,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="GUI\Admin\Admin.Master" />
     <Content Include="GUI\Owner\Owner.Master" />
+    <Content Include="GUI\Customer\Customer.Master" />
     <None Include="packages.config" />
-    <Content Include="Site.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -182,8 +280,6 @@
     <Folder Include="Assets\css\" />
     <Folder Include="Assets\images\" />
     <Folder Include="Assets\js\" />
-    <Folder Include="GUI\Admin\" />
-    <Folder Include="GUI\Customer\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
