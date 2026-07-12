@@ -77,7 +77,9 @@
     <Content Include="GUI\Admin\QuanLyCuaHang.aspx" />
     <Content Include="GUI\Admin\QuanLyKhachHang.aspx" />
     <Content Include="GUI\Admin\QuanLyTickets.aspx" />
+    <Content Include="GUI\Customer\Checkout.aspx" />
     <Content Include="GUI\Customer\DanhSachSanPham.aspx" />
+    <Content Include="GUI\Customer\LichSuDonHang.aspx" />
     <Content Include="GUI\Customer\XemGioHang.aspx" />
     <Content Include="GUI\Customer\ThongTinCaNhan.aspx" />
     <Content Include="GUI\Owner\DashboardOwner.aspx" />
@@ -121,6 +123,13 @@
     <Compile Include="GUI\Admin\QuanLyTickets.aspx.designer.cs">
       <DependentUpon>QuanLyTickets.aspx</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Customer\Checkout.aspx.cs">
+      <DependentUpon>Checkout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Customer\Checkout.aspx.designer.cs">
+      <DependentUpon>Checkout.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Customer\Customer.Master.cs">
       <DependentUpon>Customer.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -134,6 +143,13 @@
     </Compile>
     <Compile Include="GUI\Customer\DanhSachSanPham.aspx.designer.cs">
       <DependentUpon>DanhSachSanPham.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Customer\LichSuDonHang.aspx.cs">
+      <DependentUpon>LichSuDonHang.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Customer\LichSuDonHang.aspx.designer.cs">
+      <DependentUpon>LichSuDonHang.aspx</DependentUpon>
     </Compile>
     <Compile Include="GUI\Customer\XemGioHang.aspx.cs">
       <DependentUpon>XemGioHang.aspx</DependentUpon>

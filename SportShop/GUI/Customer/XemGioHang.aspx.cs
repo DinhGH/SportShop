@@ -72,7 +72,8 @@ namespace SportShop.GUI.Customer
 
         protected void btnCheckout_Click(object sender, EventArgs e)
         {
-            Response.Write("<script>alert('Chức năng thanh toán đang được phát triển!');</script>");
+            Response.Redirect("~/GUI/Customer/Checkout.aspx");
+
         }
     }
 }
