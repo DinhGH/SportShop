@@ -20,7 +20,7 @@ namespace SportShop.App_Code
         // Người dùng (Owner/Customer) gửi báo cáo lỗi
         public int GuiTicket(int senderId, string title, string content)
         {
-            string query = $"INSERT INTO Tickets (SenderID, Title, Content) VALUES ({senderId}, N'{title}', N'{content}')";
+            string query = string.Format("INSERT INTO Tickets (SenderID, Title, Content) VALUES ({0}, N'{1}', N'{2}')", senderId, title, content);
             return db.thucthiketnoi(query);
         }
     }
