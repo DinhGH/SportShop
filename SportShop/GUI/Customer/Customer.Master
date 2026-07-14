@@ -111,6 +111,9 @@
                 <a id="lnkOrders" runat="server" href="~/GUI/Customer/LichSuDonHang.aspx" class="nav-item">
                     <i class="fa-solid fa-clock-history"></i> Đơn hàng
                 </a>
+                <a id="lnkTickets" runat="server" href="~/GUI/Customer/Ticket.aspx" class="nav-item">
+                    <i class="fa-solid fa-clock-history"></i> Báo cáo sự cố
+                </a>
                 <a id="lnkProfile" runat="server" href="~/GUI/Customer/ThongTinCaNhan.aspx" class="nav-item">
                     <i class="fa-solid fa-user-gear"></i> Tài khoản
                 </a>

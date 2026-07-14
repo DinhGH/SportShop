@@ -1,5 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -32,6 +32,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,8 +42,12 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -62,27 +67,30 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include=".gitignore" />
     <Content Include="App_Data\SportShopDB.mdf" />
     <Content Include="App_Data\SportShopDB_log.ldf">
       <DependentUpon>SportShopDB.mdf</DependentUpon>
     </Content>
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
     <Content Include="Global.asax" />
     <Content Include="GUI\Admin\Dashboard.aspx" />
     <Content Include="GUI\Admin\QuanLyCuaHang.aspx" />
     <Content Include="GUI\Admin\QuanLyKhachHang.aspx" />
     <Content Include="GUI\Admin\QuanLyTickets.aspx" />
     <Content Include="GUI\Customer\Checkout.aspx" />
+    <Content Include="GUI\Customer\ChiTietCuaHang.aspx" />
+    <Content Include="GUI\Customer\ChiTietSanPham.aspx" />
     <Content Include="GUI\Customer\DanhSachSanPham.aspx" />
     <Content Include="GUI\Customer\LichSuDonHang.aspx" />
+    <Content Include="GUI\Customer\Ticket.aspx" />
     <Content Include="GUI\Customer\XemGioHang.aspx" />
     <Content Include="GUI\Customer\ThongTinCaNhan.aspx" />
-    <Content Include="GUI\Owner\DashboardOwner.aspx" />
+    <Content Include="GUI\Owner\Dashboard.aspx" />
+    <Content Include="GUI\Owner\OrderManagement.aspx" />
+    <Content Include="GUI\Owner\ProductManagement.aspx" />
+    <Content Include="GUI\Owner\ReportIssue.aspx" />
+    <Content Include="GUI\Owner\StoreInfo.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Web.config">
@@ -132,6 +140,20 @@
     <Compile Include="GUI\Customer\Checkout.aspx.designer.cs">
       <DependentUpon>Checkout.aspx</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Customer\ChiTietCuaHang.aspx.cs">
+      <DependentUpon>ChiTietCuaHang.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Customer\ChiTietCuaHang.aspx.designer.cs">
+      <DependentUpon>ChiTietCuaHang.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Customer\ChiTietSanPham.aspx.cs">
+      <DependentUpon>ChiTietSanPham.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Customer\ChiTietSanPham.aspx.designer.cs">
+      <DependentUpon>ChiTietSanPham.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Customer\Customer.Master.cs">
       <DependentUpon>Customer.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -153,6 +175,13 @@
     <Compile Include="GUI\Customer\LichSuDonHang.aspx.designer.cs">
       <DependentUpon>LichSuDonHang.aspx</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Customer\Ticket.aspx.cs">
+      <DependentUpon>Ticket.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GUI\Customer\Ticket.aspx.designer.cs">
+      <DependentUpon>Ticket.aspx</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Customer\XemGioHang.aspx.cs">
       <DependentUpon>XemGioHang.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -168,39 +197,25 @@
       <DependentUpon>ThongTinCaNhan.aspx</DependentUpon>
     </Compile>
     <Compile Include="GUI\Owner\Dashboard.aspx.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="GUI\Owner\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="GUI\Owner\ProductManagement.aspx.cs">
-      <DependentUpon>ProductManagement.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="GUI\Owner\ProductManagement.aspx.designer.cs">
-      <DependentUpon>ProductManagement.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Owner\ReportIssue.aspx.designer.cs">
-      <DependentUpon>ReportIssue.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Owner\ReportIssue.aspx.cs">
-      <DependentUpon>ReportIssue.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="GUI\Owner\StoreInfo.aspx.designer.cs">
-      <DependentUpon>StoreInfo.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\Owner\StoreInfo.aspx.cs">
-      <DependentUpon>StoreInfo.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
     <Compile Include="GUI\Owner\OrderManagement.aspx.cs">
-      <DependentUpon>OrderManagement.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>OrderManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="GUI\Owner\OrderManagement.aspx.designer.cs">
       <DependentUpon>OrderManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\ProductManagement.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ProductManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\ProductManagement.aspx.designer.cs">
+      <DependentUpon>ProductManagement.aspx</DependentUpon>
     </Compile>
     <Compile Include="GUI\Owner\Owner.Master.cs">
       <DependentUpon>Owner.Master</DependentUpon>
@@ -223,6 +238,20 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Owner\ReportIssue.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>ReportIssue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\ReportIssue.aspx.designer.cs">
+      <DependentUpon>ReportIssue.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\StoreInfo.aspx.cs">
+      <SubType>ASPXCodeBehind</SubType>
+      <DependentUpon>StoreInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Owner\StoreInfo.aspx.designer.cs">
+      <DependentUpon>StoreInfo.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -230,6 +259,9 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
@@ -243,6 +275,10 @@
     <Content Include="GUI\Admin\Admin.Master" />
     <Content Include="GUI\Owner\Owner.Master" />
     <Content Include="GUI\Customer\Customer.Master" />
+    <Content Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <Content Include="obj\Debug\SportShop.csproj.CoreCompileInputs.cache" />
+    <Content Include="obj\Debug\SportShop.csprojAssemblyReference.cache" />
+    <Content Include="rule.md" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -256,6 +292,7 @@
     <Folder Include="Assets\images\" />
     <Folder Include="Assets\js\" />
     <Folder Include="Models\" />
+    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -286,7 +323,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

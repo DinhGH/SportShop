@@ -26,6 +26,48 @@ namespace SportShop.App_Code
             return db.thucthiketnoi(query);
         }
 
+        // =========================================================================
+        // BỔ SUNG 1: Lấy danh sách đơn hàng chi tiết của một cửa hàng (cho Owner xem)
+        // =========================================================================
+        public DataTable LayDonHangTheoStore(int storeId)
+        {
+            // Query này sẽ kết hợp bảng OrderDetails, Orders và Users để lấy thông tin đơn hàng 
+            // và tên khách hàng mua sắm tại riêng Store đó.
+            string query = @"
+                SELECT 
+                    od.OrderDetailID,
+                    od.OrderID,
+                    p.ProductName,
+                    od.Quantity,
+                    od.UnitPrice,
+                    (od.Quantity * od.UnitPrice) AS SubTotal,
+                    od.Status,
+                    o.CreatedAt,
+                    o.ReceiverName,
+                    o.ReceiverPhone,
+                    o.ShippingAddress
+                FROM OrderDetails od
+                INNER JOIN Products p ON od.ProductID = p.ProductID
+                INNER JOIN Orders o ON od.OrderID = o.OrderID
+                WHERE od.StoreID = " + storeId + @"
+                ORDER BY o.CreatedAt DESC";
+
+            return db.laydulieu(query);
+        }
+
+        // =========================================================================
+        // BỔ SUNG 2: Cập nhật trạng thái của đơn hàng chi tiết (Chờ duyệt, Đang giao, Đã giao, Hủy)
+        // =========================================================================
+        public int CapNhatTrangThai(int orderDetailId, string newStatus)
+        {
+            string query = string.Format(
+                "UPDATE OrderDetails SET Status = N'{0}' WHERE OrderDetailID = {1}",
+                newStatus,
+                orderDetailId
+            );
+            return db.thucthiketnoi(query);
+        }
+
         // Hàm xử lý đặt hàng cho Khách hàng
         public bool DatHang(int customerId, string receiverName, string receiverPhone, string shippingAddress, string paymentMethod)
         {
