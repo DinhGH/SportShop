@@ -12,48 +12,253 @@ namespace SportShop.App_Code
         ConnectionProvider db = new ConnectionProvider();
 
         // Khách hàng xem lại lịch sử mua hàng của họ
-        public DataTable LayLichSuMuaHang(int storeId)
+        public DataTable LayLichSuMuaHang(int customerId)
         {
-            string sql = string.Format(@"SELECT od.OrderDetailID,od.OrderID,u.FullName AS CustomerName,o.ReceiverName,o.ReceiverPhone,o.ShippingAddress,p.ProductName,
-        od.Quantity,od.UnitPrice,od.Status,o.CreatedAt FROM OrderDetails od INNER JOIN Orders o ON od.OrderID = o.OrderID INNER JOIN Users u ON o.CustomerID = u.UserID
-        INNER JOIN Products p ON od.ProductID = p.ProductID WHERE od.StoreID = {0} ORDER BY o.CreatedAt DESC", storeId);
-            return db.laydulieu(sql);
+            return db.laydulieu($"SELECT * FROM Orders WHERE CustomerID = {customerId} ORDER BY CreatedAt DESC");
         }
 
         // Tạo đơn hàng tổng khi bấm thanh toán
         public int TaoDonHangTong(int customerId, decimal totalPrice, string address, string name, string phone, string method)
         {
             // Hàm này sẽ insert một dòng mới vào bảng Orders
-            string query = string.Format("INSERT INTO Orders (CustomerID, TotalPrice, ShippingAddress, ReceiverName, ReceiverPhone, PaymentMethod) VALUES ({0}, {1}, N'{2}', N'{3}', '{4}', N'{5}')", customerId, totalPrice, address, name, phone, method);
+            string query = $"INSERT INTO Orders (CustomerID, TotalPrice, ShippingAddress, ReceiverName, ReceiverPhone, PaymentMethod) " +
+                           $"VALUES ({customerId}, {totalPrice}, N'{address}', N'{name}', '{phone}', N'{method}')";
             return db.thucthiketnoi(query);
         }
 
-        public DataTable LayDonHangTheoStore(int storeId)
+        // Hàm xử lý đặt hàng cho Khách hàng
+        public bool DatHang(int customerId, string receiverName, string receiverPhone, string shippingAddress, string paymentMethod)
         {
-            string sql = string.Format(@"
+            // Tạo kết nối mới để sử dụng Transaction
+            SqlConnection conn = db.GetConnection();
+
+            // Mở kết nối
+            conn.Open();
+
+            // Bắt đầu Transaction
+            SqlTransaction tran = conn.BeginTransaction();
+
+            try
+            {
+                //=====================================================
+                // BƯỚC 1: Lấy toàn bộ sản phẩm trong giỏ hàng
+                //=====================================================
+
+                string queryCart = @"
+        SELECT
+            c.ProductID,
+            c.Quantity,
+            p.Price,
+            p.StoreID,
+            p.StockQuantity
+        FROM Cart c
+        INNER JOIN Products p
+            ON c.ProductID = p.ProductID
+        WHERE c.CustomerID = @CustomerID";
+
+                SqlCommand cmdCart = new SqlCommand(queryCart, conn, tran);
+
+                cmdCart.Parameters.AddWithValue("@CustomerID", customerId);
+
+                SqlDataAdapter da = new SqlDataAdapter(cmdCart);
+
+                DataTable dtCart = new DataTable();
+
+                da.Fill(dtCart);
+
+                // Nếu giỏ hàng rỗng thì không cho thanh toán
+                if (dtCart.Rows.Count == 0)
+                {
+                    tran.Rollback();
+                    conn.Close();
+                    return false;
+                }
+
+                //=====================================================
+                // BƯỚC 2: Kiểm tra tồn kho
+                //=====================================================
+
+                foreach (DataRow row in dtCart.Rows)
+                {
+                    int quantity = Convert.ToInt32(row["Quantity"]);
+
+                    int stock = Convert.ToInt32(row["StockQuantity"]);
+
+                    if (quantity > stock)
+                    {
+                        tran.Rollback();
+                        conn.Close();
+                        return false;
+                    }
+                }
+
+                //=====================================================
+                // BƯỚC 3: Tính tổng tiền
+                //=====================================================
+
+                decimal totalPrice = 0;
+
+                foreach (DataRow row in dtCart.Rows)
+                {
+                    decimal price = Convert.ToDecimal(row["Price"]);
+
+                    int quantity = Convert.ToInt32(row["Quantity"]);
+
+                    totalPrice += price * quantity;
+                }
+
+                //=====================================================
+                // BƯỚC 4: Thêm vào bảng Orders
+                //=====================================================
+
+                string queryOrder = @"
+        INSERT INTO Orders
+        (
+            CustomerID,
+            TotalPrice,
+            ShippingAddress,
+            ReceiverName,
+            ReceiverPhone,
+            PaymentMethod
+        )
+        VALUES
+        (
+            @CustomerID,
+            @TotalPrice,
+            @ShippingAddress,
+            @ReceiverName,
+            @ReceiverPhone,
+            @PaymentMethod
+        );
+
+        SELECT SCOPE_IDENTITY();";
+
+                SqlCommand cmdOrder = new SqlCommand(queryOrder, conn, tran);
+
+                cmdOrder.Parameters.AddWithValue("@CustomerID", customerId);
+                cmdOrder.Parameters.AddWithValue("@TotalPrice", totalPrice);
+                cmdOrder.Parameters.AddWithValue("@ShippingAddress", shippingAddress);
+                cmdOrder.Parameters.AddWithValue("@ReceiverName", receiverName);
+                cmdOrder.Parameters.AddWithValue("@ReceiverPhone", receiverPhone);
+                cmdOrder.Parameters.AddWithValue("@PaymentMethod", paymentMethod);
+
+                // Lấy OrderID vừa được tạo
+                int orderId = Convert.ToInt32(cmdOrder.ExecuteScalar());
+                //=====================================================
+                // BƯỚC 5: Thêm từng sản phẩm vào bảng OrderDetails
+                //=====================================================
+
+                foreach (DataRow row in dtCart.Rows)
+                {
+                    int productId = Convert.ToInt32(row["ProductID"]);
+                    int quantity = Convert.ToInt32(row["Quantity"]);
+                    decimal price = Convert.ToDecimal(row["Price"]);
+                    int storeId = Convert.ToInt32(row["StoreID"]);
+
+                    string queryDetail = @"
+            INSERT INTO OrderDetails
+            (
+                OrderID,
+                ProductID,
+                StoreID,
+                Quantity,
+                UnitPrice
+            )
+            VALUES
+            (
+                @OrderID,
+                @ProductID,
+                @StoreID,
+                @Quantity,
+                @UnitPrice
+            )";
+
+                    SqlCommand cmdDetail = new SqlCommand(queryDetail, conn, tran);
+
+                    cmdDetail.Parameters.AddWithValue("@OrderID", orderId);
+                    cmdDetail.Parameters.AddWithValue("@ProductID", productId);
+                    cmdDetail.Parameters.AddWithValue("@StoreID", storeId);
+                    cmdDetail.Parameters.AddWithValue("@Quantity", quantity);
+                    cmdDetail.Parameters.AddWithValue("@UnitPrice", price);
+
+                    cmdDetail.ExecuteNonQuery();
+                }
+
+                //=====================================================
+                // BƯỚC 6: Trừ số lượng tồn kho của từng sản phẩm
+                //=====================================================
+
+                foreach (DataRow row in dtCart.Rows)
+                {
+                    int productId = Convert.ToInt32(row["ProductID"]);
+                    int quantity = Convert.ToInt32(row["Quantity"]);
+
+                    string queryUpdateStock = @"
+            UPDATE Products
+            SET StockQuantity = StockQuantity - @Quantity
+            WHERE ProductID = @ProductID";
+
+                    SqlCommand cmdStock = new SqlCommand(queryUpdateStock, conn, tran);
+
+                    cmdStock.Parameters.AddWithValue("@Quantity", quantity);
+                    cmdStock.Parameters.AddWithValue("@ProductID", productId);
+
+                    cmdStock.ExecuteNonQuery();
+                }
+
+                //=====================================================
+                // BƯỚC 7: Xóa toàn bộ giỏ hàng sau khi đặt hàng thành công
+                //=====================================================
+
+                string queryDeleteCart =
+                    "DELETE FROM Cart WHERE CustomerID = @CustomerID";
+
+                SqlCommand cmdDelete = new SqlCommand(queryDeleteCart, conn, tran);
+
+                cmdDelete.Parameters.AddWithValue("@CustomerID", customerId);
+
+                cmdDelete.ExecuteNonQuery();
+
+                //=====================================================
+                // BƯỚC 8: Hoàn tất Transaction
+                //=====================================================
+
+                tran.Commit();
+
+                conn.Close();
+
+                return true;
+            }
+            catch
+            {
+                // Nếu có lỗi thì phục hồi dữ liệu
+
+                tran.Rollback();
+
+                conn.Close();
+
+                return false;
+            }
+        }
+
+        // Xem chi tiết một đơn hàng
+        public DataTable LayChiTietDonHang(int orderId)
+        {
+            string query = @"
     SELECT
         od.OrderDetailID,
-        o.OrderID,
-        o.ReceiverName,
         p.ProductName,
         od.Quantity,
         od.UnitPrice,
-        od.Status,
-        o.CreatedAt
+        od.Status
     FROM OrderDetails od
-    INNER JOIN Orders o ON od.OrderID = o.OrderID
-    INNER JOIN Products p ON od.ProductID = p.ProductID
-    WHERE od.StoreID = {0}
-    ORDER BY o.OrderID, od.OrderDetailID", storeId);
+    INNER JOIN Products p
+        ON od.ProductID = p.ProductID
+    WHERE od.OrderID = " + orderId;
 
-            return db.laydulieu(sql);
+            return db.laydulieu(query);
         }
 
-        public int CapNhatTrangThai(int orderDetailId, string status)
-        {
-            string sql = string.Format(@"UPDATE OrderDetails SET Status = N'{0}' WHERE OrderDetailID = {1}", status, orderDetailId);
 
-            return db.thucthiketnoi(sql);
-        }
     }
 }

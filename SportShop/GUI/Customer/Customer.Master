@@ -101,8 +101,15 @@
             
             <!-- Menu điều hướng của khách hàng -->
             <nav class="nav-menu">
+                <!-- Thêm id và cùng đường dẫn tuyệt đối từ gốc ~/ GUI/Customer/ -->
                 <a id="lnkHome" runat="server" href="~/GUI/Customer/DanhSachSanPham.aspx" class="nav-item">
                     <i class="fa-solid fa-house"></i> Trang chủ
+                </a>
+                <a id="lnkCart" runat="server" href="~/GUI/Customer/XemGioHang.aspx" class="nav-item">
+                    <i class="fa-solid fa-cart-shopping"></i> Giỏ hàng
+                </a>
+                <a id="lnkOrders" runat="server" href="~/GUI/Customer/LichSuDonHang.aspx" class="nav-item">
+                    <i class="fa-solid fa-clock-history"></i> Đơn hàng
                 </a>
                 <a id="lnkProfile" runat="server" href="~/GUI/Customer/ThongTinCaNhan.aspx" class="nav-item">
                     <i class="fa-solid fa-user-gear"></i> Tài khoản

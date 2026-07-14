@@ -70,5 +70,39 @@ namespace SportShop
             }
             return result;
         }
+
+        //ham dung de thuc hien truy suat cu the toi 1 doi tuong trong database
+        public object LayGiaTri(string query)
+        {
+            object result = null;
+
+            try
+            {
+                moketnoi();
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                result = cmd.ExecuteScalar();
+            }
+            catch
+            {
+                result = null;
+            }
+            finally
+            {
+                dongketnoi();
+            }
+
+            return result;
+        }
+
+        //trả về SqlConnection để OrderDAL tự quản lý Transaction.
+        public SqlConnection GetConnection()
+        {
+            string chuoiketnoi = HttpContext.Current.Server.MapPath("~/App_Data/SportShopDB.mdf");
+            string con = $@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={chuoiketnoi};Integrated Security=True";
+            return new SqlConnection(con);
+        }
+
     }
 }

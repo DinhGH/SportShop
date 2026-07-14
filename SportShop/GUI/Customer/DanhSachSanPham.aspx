@@ -11,6 +11,25 @@
         .product-price { font-size: 16px; font-weight: bold; color: #0284c7; margin-bottom: 12px; }
         .btn-detail { display: block; text-align: center; padding: 8px; background-color: #334155; color: white; text-decoration: none; border-radius: 6px; font-size: 14px; font-weight: 500; transition: background 0.2s; }
         .btn-detail:hover { background-color: #1e293b; }
+
+        .btn-detail{
+            display:block;
+            width:100%;
+            box-sizing:border-box;
+            text-align:center;
+            padding:8px;
+            background:#334155;
+            color:white;
+            text-decoration:none;
+            border:none;
+            border-radius:6px;
+            cursor:pointer;
+            margin-top:8px;
+        }
+
+        .btn-detail:hover{
+            background:#1e293b;
+        }
     </style>
 </asp:Content>
 
@@ -26,9 +45,27 @@
                         <img src='<%# Eval("ImageURL") %>' alt='<%# Eval("ProductName") %>' class="product-img" />
                         <div class="product-name"><%# Eval("ProductName") %></div>
                     </div>
-                    <div>
-                        <div class="product-price"><%# string.Format("{0:N0} đ", Eval("Price")) %></div>
-                        <a href='ChiTietSanPham.aspx?id=<%# Eval("ProductID") %>' class="btn-detail">Xem chi tiết</a>
+
+                   <div>
+
+                        <div class="product-price">
+                            <%# string.Format("{0:N0} đ", Eval("Price")) %>
+                        </div>
+
+                        <a href='ChiTietSanPham.aspx?id=<%# Eval("ProductID") %>'
+                            class="btn-detail">
+                            Xem chi tiết
+                        </a>
+
+                        <br />
+
+                        <asp:Button ID="btnAddCart"
+                            runat="server"
+                            Text="🛒 Thêm vào giỏ"
+                            CssClass="btn-detail"
+                            CommandArgument='<%# Eval("ProductID") %>'
+                            OnClick="btnAddCart_Click" />
+
                     </div>
                 </div>
             </ItemTemplate>
