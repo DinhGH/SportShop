@@ -1,5 +1,6 @@
 using System;
 using System.Web.UI;
+using SportShop.App_Code;
 
 namespace SportShop.GUI.Owner
 {
@@ -7,6 +8,7 @@ namespace SportShop.GUI.Owner
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+
         }
 
         protected void btnSubmit_Click(object sender, EventArgs e)
@@ -21,12 +23,36 @@ namespace SportShop.GUI.Owner
                 return;
             }
 
-            // Logic lưu khiếu nại (giả lập lưu vào log hoặc DB)
-            lblMessage.Text = "Cảm ơn bạn, báo cáo đã được gửi đến Admin.";
-            lblMessage.ForeColor = System.Drawing.Color.Green;
+            try
+            {
+                // Lấy UserID từ Session
+                int senderId = Convert.ToInt32(Session["UserID"]);
 
-            txtTitle.Text = "";
-            txtContent.Text = "";
+                TicketDAL ticketDAL = new TicketDAL();
+                int result = ticketDAL.GuiBaoCao(senderId, title, content); // Corrected method name
+
+                if (result > 0)
+                {
+                    lblMessage.Text = "Cảm ơn bạn, báo cáo đã được gửi đến Admin.";
+                    lblMessage.ForeColor = System.Drawing.Color.Green; // Corrected to Green for success
+
+                    txtTitle.Text = "";
+                    txtContent.Text = "";
+                }
+                else
+                {
+                    lblMessage.Text = "Gửi báo cáo thất bại. Vui lòng thử lại sau.";
+                    lblMessage.ForeColor = System.Drawing.Color.Red;
+                }
+            }
+            catch (Exception ex)
+            {
+                lblMessage.Text = "Đã xảy ra lỗi không mong muốn. Vui lòng thử lại sau.";
+                lblMessage.ForeColor = System.Drawing.Color.Red;
+
+                // Ghi log nếu cần
+                // System.Diagnostics.Trace.WriteLine(ex.ToString());
+            }
         }
     }
 }

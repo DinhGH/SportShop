@@ -14,7 +14,7 @@ namespace SportShop
         // Hàm mở kết nối
         public void moketnoi()
         {
-            string chuoiketnoi = HttpContext.Current.Server.MapPath("~/App_Data/SportShopDB.mdf");
+            string chuoiketnoi = HttpContext.Current.Server.MapPath("~/App_Data/Database1.mdf");
             string con = string.Format(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={0};Integrated Security=True", chuoiketnoi);
             conn = new SqlConnection(con);
             conn.Open();
@@ -99,7 +99,7 @@ namespace SportShop
         //trả về SqlConnection để OrderDAL tự quản lý Transaction.
         public SqlConnection GetConnection()
         {
-            string chuoiketnoi = HttpContext.Current.Server.MapPath("~/App_Data/SportShopDB.mdf");
+            string chuoiketnoi = HttpContext.Current.Server.MapPath("~/App_Data/Database1.mdf");
             string con = string.Format(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename={0};Integrated Security=True", chuoiketnoi);
             return new SqlConnection(con);
         }
